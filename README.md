@@ -22,3 +22,22 @@
 - Marta Anthony
 - Michael Refvem
 - Trevor Stubbs
+
+
+## Back-End To Front-End
+- `finalFrontendArray = [[similarMovieArray], [genreMovieArray], [votesMovieArray]]`
+    - Column 1 - Movies that are similar
+    - Column 2 - Movies with the same genre
+    - Column 2 - Movies with similar popularity
+
+
+``` JavaScript
+<% finalFrontendArray.forEach((value, index) =>{ %>
+  <% if(index === 0){ %>
+    <%<h3>Similar</h3>%>
+    <% value.forEach(element => { %>
+      <%=<p>element.title</p> %>
+    <%})%>
+  <%}%>  
+<%} ) %>
+```

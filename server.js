@@ -89,7 +89,7 @@ function searchRoute(request, response){
                   // console.log('this is votes output', votesMovieArray)
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
                   console.log('this is final frontend array', finalFrontendArray);
-                  response.status(200).send(finalFrontendArray);
+                  response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
                 }).catch(errorCatch);
             }).catch(errorCatch);
         }).catch(errorCatch);
