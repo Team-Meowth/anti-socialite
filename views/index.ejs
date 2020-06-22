@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/modules.css">
+</head>
+<body>
+  <header>
+
+  </header>
+
+  <main>
+    <section class="wrapper">
+      <% obj.forEach(movieArr => { %>
+        <section class="container">
+          <% movieArr.forEach(movie => { %>
+            <form action="/add" method="POST">
+
+              <article class="movie">
+                <h2> <%= movie.title %> </h2>
+                <img src="<%= movie.image %>">
+              </article>
+
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="image" value="<%= movie.image %>">
+
+              <button>Save</button>
+            </form>
+          <% }) %>
+        </section>
+      <% }) %> 
+    </section>
+  </main>
+
+  <footer>
+
+  </footer>
+</body>
+</html>
+
+
+<!-- <a href="/searches">Search an author / book</a>
+<section id='in-database'>
+  <p>Book Count: <%=bookCount %></p>
+  <% books.forEach(book => { %>
+  <div class="book">
+    <p><%= book.title %></p>
+    <p><%= book.authors %></p>
+    <img src="<%= book.image_url %>" alt="book.title">
+    <a href="/books/<%= book.id %>">Show Details</a>
+  </div>
+  <input type="hidden" name="title" value=<%= book.title %>>
+  <input type="hidden" name="authors" value=<%= book.authors %>>
+  <% }); %>
+</section> -->
