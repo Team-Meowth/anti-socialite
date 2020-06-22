@@ -8,6 +8,7 @@ main {
   border: 1px solid red;
   max-width: 85vw;
   margin: auto;
+  padding: 1em, 1em;
 }
 
 .movie {
@@ -15,6 +16,4 @@ main {
   width: 200px;
   background-color: seashell;
   border: 2px solid black;
-  
-
 }
