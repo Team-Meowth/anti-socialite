@@ -22,3 +22,45 @@
 - Marta Anthony
 - Michael Refvem
 - Trevor Stubbs
+
+
+## Back-End To Front-End
+- `finalFrontendArray = [[similarMovieArray], [genreMovieArray], [votesMovieArray]]`
+    - Column 1 - Movies that are similar
+    - Column 2 - Movies with the same genre
+    - Column 2 - Movies with similar popularity
+
+## Possible movie render ejs script
+``` JavaScript
+<% finalFrontendArray.forEach((value, index) =>{ %>
+  <% if(index === 0){ %>
+    <%<h3>Similar</h3>%>
+    <% value.forEach(element => { %>
+      <%=<p>element.title</p> %>
+    <%})%>
+  <%}%>  
+<%} ) %>
+```
+
+## Front-End to Back-End
+- `/search/:id`
+
+## .env arguments
+- PORT=[YOUR_PORT]
+- MOVIE_API_KEY=[MOVIE_DB_API_KEY]
+- DATABASE_URL=[YOUR_DB_NAME]
+
+## Movie Constructor Properties
+- popularity - number
+- vote_count - integer
+- poster_path - string or null
+- video - boolean
+- id - integer
+- backdrop_path - string or null
+- original_language - string
+- original_title - string
+- genre_ids - array[integer]
+- title - string
+- vote_average - number
+- overview - string
+- release_date - string
