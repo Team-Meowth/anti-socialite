@@ -1,6 +1,13 @@
+main {
+  background-color: #1C2541;
+
+
+}
+
 .container {
-  background-color: royalblue;
   border: 1px solid red;
+  max-width: 85vw;
+  margin: auto;
 }
 
 .movie {
