@@ -6,9 +6,10 @@ main {
 
 .container {
   border: 1px solid red;
-  max-width: 85vw;
-  margin: auto;
-  padding: 1em, 1em;
+  max-width: 80vw;
+  margin: auto auto 20px auto;
+  background-color: #0B132B;
+  border-radius: 25px;
 }
 
 .movie {
@@ -16,4 +17,5 @@ main {
   width: 200px;
   background-color: seashell;
   border: 2px solid black;
+  border-radius: 25px;
 }
