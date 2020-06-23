@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS favorites;
-DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users ( 
   user_id SERIAL PRIMARY KEY, 
@@ -11,10 +9,11 @@ CREATE TABLE users (
 CREATE TABLE favorites (
   user_id int references users(user_id),
   url_to_favorite_item int
-)
+);
 
 CREATE TABLE movies (
-  url_to_favorite_item int references favorites(url_to_favorite_item),
+  movie_id SERIAL PRIMARY KEY,
+  -- url_to_favorite_item int references favorites(url_to_favorite_item),
   created_at TIMESTAMP, 
   url_to_favorite_item VARCHAR(255),
   popularity real,
