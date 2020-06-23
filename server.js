@@ -29,17 +29,31 @@ app.use(methodOverride('_method'));
 app.get('/', homeRoute);
 app.get('/search', searchRoute);
 app.get('/search/:title', titleSearchRoute);
+app.post('/search', searchRoute);
 app.all('*', errorRoute);
 
 // Home Route Function
 function homeRoute(request, response){
   console.log('I am on the console');
-  response.status(200).send('I am on the browser');
+  response.status(200).redirect('/search/yesterday');
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 }
 
 // Initial search function
 function searchRoute(request, response){
-  let searchString = 'Star Wars';
+  let searchString = request.body.search;
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
   const searchParams = {
@@ -67,6 +81,7 @@ function searchRoute(request, response){
         .query(idParams)
         .then(similarData => {
           let similarMovieArray = [];
+          shuffle(similarData.body.results);
           for(let i=0; i<similarData.body.results.length; i++){
             similarMovieArray.push(new Movie(similarData.body.results[i]))
             if(i >= 2) {
@@ -85,6 +100,7 @@ function searchRoute(request, response){
             .query(genreParams)
             .then(genreData => {
               let genreMovieArray = [];
+              shuffle(genreData.body.results);
               for (let i=0; i<genreData.body.results.length; i++){
                 genreMovieArray.push(new Movie(genreData.body.results[i]))
                 if(i >= 2) {
@@ -102,6 +118,7 @@ function searchRoute(request, response){
                 .query(votesParams)
                 .then(votesData => {
                   let votesMovieArray = [];
+                  shuffle(votesData.body.results);
                   for (let i=0; i<votesData.body.results.length; i++){
                     votesMovieArray.push(new Movie(votesData.body.results[i]))
                     if(i >= 2) {
@@ -109,6 +126,11 @@ function searchRoute(request, response){
                     }
                   }
                   // console.log('this is votes output', votesMovieArray)
+                  // console.log('before we shuffle similarMovieArray', similarMovieArray)
+                  // shuffle(similarMovieArray);
+                  // shuffle(genreMovieArray);
+                  // shuffle(votesMovieArray);
+                  // console.log('after we shuffle similarMovieArray', similarMovieArray)
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
                   // console.log('this is final frontend array', finalFrontendArray);
                   response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
