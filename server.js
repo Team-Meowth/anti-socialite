@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 3001;
 
 // Use Middleware
 app.use(express.urlencoded({extended:true}));
-app.use(express.static('public'));
+app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
