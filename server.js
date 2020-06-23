@@ -29,6 +29,7 @@ app.use(methodOverride('_method'));
 app.get('/', homeRoute);
 app.get('/search', searchRoute);
 app.get('/search/:title', titleSearchRoute);
+app.post('/search', searchRoute);
 app.all('*', errorRoute);
 
 // Home Route Function
@@ -80,6 +81,7 @@ function searchRoute(request, response){
         .query(idParams)
         .then(similarData => {
           let similarMovieArray = [];
+          shuffle(similarData.body.results);
           for(let i=0; i<similarData.body.results.length; i++){
             similarMovieArray.push(new Movie(similarData.body.results[i]))
             if(i >= 2) {
@@ -98,6 +100,7 @@ function searchRoute(request, response){
             .query(genreParams)
             .then(genreData => {
               let genreMovieArray = [];
+              shuffle(genreData.body.results);
               for (let i=0; i<genreData.body.results.length; i++){
                 genreMovieArray.push(new Movie(genreData.body.results[i]))
                 if(i >= 2) {
@@ -115,6 +118,7 @@ function searchRoute(request, response){
                 .query(votesParams)
                 .then(votesData => {
                   let votesMovieArray = [];
+                  shuffle(votesData.body.results);
                   for (let i=0; i<votesData.body.results.length; i++){
                     votesMovieArray.push(new Movie(votesData.body.results[i]))
                     if(i >= 2) {
@@ -122,6 +126,11 @@ function searchRoute(request, response){
                     }
                   }
                   // console.log('this is votes output', votesMovieArray)
+                  // console.log('before we shuffle similarMovieArray', similarMovieArray)
+                  // shuffle(similarMovieArray);
+                  // shuffle(genreMovieArray);
+                  // shuffle(votesMovieArray);
+                  // console.log('after we shuffle similarMovieArray', similarMovieArray)
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
                   // console.log('this is final frontend array', finalFrontendArray);
                   response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
