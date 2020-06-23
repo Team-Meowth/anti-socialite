@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head.ejs') %>
+  <title>Your Watch List</title>
+</head>
+<body>
+  <main>
+    <section>
+      <% obj.forEach(value =>{
+        <article>
+          <img src="<%= value.poster_url %>" alt="<%= value.title %>">
+          <h2><%= value.title %></h2>
+          <form action="_method=DELETE" method="POST">
+            <button type="submit">Delete From Favorites</button>
+          </form>
+          <form action="/favorites" method="POST">
+            <button type="submit">Add To Favorites</button>
+          </form>
+          <input type="hidden" value="<%= value.title %>">
+        </article>
+      })
+    </section>
+  </main>
+</body>
+</html>
