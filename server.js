@@ -37,6 +37,19 @@ function homeRoute(request, response){
   response.status(200).send('I am on the browser');
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+}
+
 // Initial search function
 function searchRoute(request, response){
   let searchString = 'Star Wars';
