@@ -38,6 +38,26 @@
   </main>
 
   <footer>
+    <!-- <section class="wrapper">
+      <% searchResults.forEach(movieArr => { %>
+        <section class="container">
+          <% movieArr.forEach(movie => { %>
+            <form action="/add" method="POST">
+
+              <article class="movie">
+                <h2> <%= movie.title %> </h2>
+                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>">
+              </article>
+
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="image" value="<%= movie.image %>">
+
+            </form>
+            <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
+          <% }) %>
+        </section>
+      <% }) %> 
+    </section> -->
 
   </footer>
 </body>

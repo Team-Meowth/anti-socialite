@@ -1,3 +1,19 @@
+header {
+  font-size: xx-large;
+  text-align: center;
+  height: 10vh
+}
+
+.search {
+  padding: 10px;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #6FFFE9;
+  color: #6FFFE9;
+  border-radius: 10px;
+  outline: none;
+
+}
+
 main {
   background-color: #1C2541;
 
@@ -5,17 +21,20 @@ main {
 }
 
 .container {
-  border: 1px solid red;
+  border: 2px solid #6FFFE9;
   max-width: 80vw;
-  margin: auto auto 20px auto;
+  margin: auto auto 30px auto;
   background-color: #0B132B;
-  border-radius: 25px;
+  border-radius: 10px;
+  color: white;
 }
 
 .movie {
   height: 300px;
   width: 200px;
-  background-color: seashell;
   border: 2px solid black;
   border-radius: 25px;
+  margin-bottom: 20px;
+  color: #6FFFE9;
 }
+
