@@ -29,7 +29,7 @@
 
               <article class="movie">
                 <h3> <%= movie.title %> </h3>
-                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>">
+                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
               </article>
 
               <input type="hidden" name="title" value="<%= movie.title %>">
@@ -43,12 +43,13 @@
               <button type="submit">Add To Watchlist</button>
             </form>
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
-            <div class="modal">
-              <h2><%= movie.title %></h2>
+            <div class="modal" id="<%=movie.id%>Modal">
               <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
+              <span class="close">close</span>
+              <h2><%= movie.title %></h2>
               <p><%= movie.overview%></p>
-              <p><%= movie.release_date%></p>
-              <p><%= movie.vote_average %></p>
+              <p> Release Date: <%= movie.release_date%></p>
+              <p> Rating: <%= movie.vote_average %></p>
             </div>
             <% }) %> 
        </section>
@@ -60,7 +61,7 @@
 
               <article class="movie">
                 <h3> <%= movie.title %> </h3>
-                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>">
+                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
               </article>
 
               <input type="hidden" name="title" value="<%= movie.title %>">
@@ -74,6 +75,14 @@
               <button type="submit">Add To Watchlist</button>
             </form>
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
+            <div class="modal" id="<%=movie.id%>Modal">
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
+              <span class="close">close</span>
+              <h2><%= movie.title %></h2>
+              <p><%= movie.overview%></p>
+              <p> Release Date: <%= movie.release_date%></p>
+              <p> Rating: <%= movie.vote_average %></p>
+            </div>
             <% }) %> 
        </section>
        <section class="container">
@@ -84,7 +93,7 @@
 
               <article class="movie">
                 <h3> <%= movie.title %> </h3>
-                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>">
+                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
               </article>
 
               <input type="hidden" name="title" value="<%= movie.title %>">
@@ -98,6 +107,14 @@
               <button type="submit">Add To Watchlist</button>
             </form>
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
+            <div class="modal" id="<%=movie.id%>Modal">
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
+              <span class="close">close</span>
+              <h2><%= movie.title %></h2>
+              <p><%= movie.overview%></p>
+              <p> Release Date: <%= movie.release_date%></p>
+              <p> Rating: <%= movie.vote_average %></p>
+            </div>
             <% }) %> 
        </section>
     </section>

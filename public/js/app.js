@@ -8,6 +8,13 @@ console.log('Hi Leah');
 // });
 
 $('.modal').hide();
-$('.movie').on('click', () => {
-  $('.modal').show();
+$('.movie').on('click', (event) => {
+  let clicked = event.target.id;
+  console.log(clicked)
+  $(`#${clicked}Modal`).show();
+  // $('main').not('.modal').css('filter','blur(1px)')
+})
+
+$('.close').on('click', (event) => {
+  $('.modal').hide();
 })
