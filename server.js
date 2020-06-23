@@ -34,8 +34,14 @@ app.all('*', errorRoute);
 
 // Home Route Function
 function homeRoute(request, response){
-  console.log('I am on the console');
-  response.status(200).redirect('/search/yesterday');
+  let sql = `SELECT TITLE FROM movies;`;
+  client.query(sql)
+  .then(sqlResults => {
+    let movies = sqlResults.rows;
+    shuffle(movies);
+    console.log(movies);
+    response.status(200).redirect('/search/movies[0]');
+  }).catch(error => console.error(error))
 }
 
 function shuffle(array) {
@@ -132,7 +138,7 @@ function searchRoute(request, response){
                   // shuffle(votesMovieArray);
                   // console.log('after we shuffle similarMovieArray', similarMovieArray)
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
-                  // console.log('this is final frontend array', finalFrontendArray);
+                  console.log('this is final frontend array', finalFrontendArray);
                   response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
                 }).catch(errorCatch);
             }).catch(errorCatch);
