@@ -35,7 +35,7 @@ app.all('*', errorRoute);
 // Home Route Function
 function homeRoute(request, response){
   console.log('I am on the console');
-  response.status(200).send('I am on the browser');
+  response.status(200).redirect('/search/yesterday');
 }
 
 function shuffle(array) {
@@ -53,7 +53,7 @@ function shuffle(array) {
 
 // Initial search function
 function searchRoute(request, response){
-  let searchString = 'Star Wars';
+  let searchString = request.body.search;
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
   const searchParams = {
