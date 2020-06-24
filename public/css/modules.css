@@ -8,6 +8,11 @@ h1 {
   font-family: 'Limelight', cursive;
   font-size: 36px;
 }
+
+h2 {
+    font-family: 'Crimson Pro', serif;
+  }
+
 /* burger menu */
 #burger-container{
   position: relative;
@@ -16,10 +21,6 @@ h1 {
   cursor: pointer;
   display: block;
 }
-
-/* #burger{
-  
-} */
 
 /* creating burger menu visual */
 #burger span{
@@ -63,10 +64,9 @@ top: 15px;
 /* open menu */
 
 #burger-container.open nav{
-  width: 600px;
-  background-color: black;
-  height: 750px;
-  /* opacity: 0.9; */
+  width: 550px;
+  background-image: url("/images/blue-curtain.jpg");
+  height: 800px;
 }
 
 #burger-container.open a{
@@ -77,22 +77,18 @@ top: 15px;
   width: 200px;
   padding: 30px;
   font-size: 22px;
+  margin: auto;
 }
 
 #burger-container.open .menu{
   display: none;
 }
 
-
 #desktop-menu{
   display: none;
 }
 
-
-
-
 @media screen and (min-width: 961px) {
-
 
   #burger-container{
     display: none;
@@ -103,7 +99,7 @@ top: 15px;
     color: #eee;
     padding: 20px;
     margin-top: 70px;
-    font-size: 24px;
+    font-size: 24px; 
   }
 
   #desktop-menu{
@@ -120,6 +116,7 @@ top: 15px;
     color: #eee;
     visibility: visible;
     flex-direction: row;
+    margin-bottom: 30px;
   }
 
   nav{
