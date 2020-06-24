@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
   <%- include('./partials/head.ejs') %>
-  <title>Your Watch List</title>
+  <title>Your Watchlist</title>
 </head>
 <body>
+  <header>
+    <%- include('./partials/header.ejs') %>
+  </header>
   <main>
     <section>
-      <% obj.forEach(value =>{
+      <% searchResults.forEach(value =>{ %>
         <article>
-          <img src="<%= value.poster_url %>" alt="<%= value.title %>">
+          <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <h2><%= value.title %></h2>
           <form action="_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
@@ -19,7 +22,7 @@
           </form>
           <input type="hidden" value="<%= value.title %>">
         </article>
-      })
+      <% }) %>
     </section>
   </main>
 </body>
