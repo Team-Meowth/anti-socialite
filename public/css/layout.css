@@ -1,7 +1,7 @@
 header {
   background-color: #0B132B;
   background-image: linear-gradient(to bottom right, #0B132B, #3f397e);
-  opacity: 0.9;
+  /* opacity: 0.9; */
   font-size: xx-large;
   text-align: center;
   height: 12vh;
