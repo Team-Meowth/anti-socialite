@@ -20,6 +20,7 @@ $('.close').on('click', (event) => {
 })
 
 
+
 // hamburger menu`
 $(document).ready(function(){
   $('#burger-container').on('click', function(){
@@ -27,3 +28,10 @@ $(document).ready(function(){
     $(this).toggleClass('open');
   });
 });
+
+
+
+$('#choose-rating').hide();
+$('#add-rating').on('click', (event) => {
+  $('#choose-rating').show();
+})

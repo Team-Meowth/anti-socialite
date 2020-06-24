@@ -65,6 +65,22 @@
               <p><%= movie.overview%></p>
               <p> Release Date: <%= movie.release_date%></p>
               <p> Rating: <%= movie.vote_average %></p>
+              
+              <button id="add-rating">Add Rating</button>
+              <form id='choose-rating'>
+                <select>
+                  <option value="1">1 &#9733;</option>
+                  <option value="2">2 &#9733;</option>
+                  <option value="3">3 &#9733;</option>
+                  <option value="4">4 &#9733;</option>
+                  <option value="5">5 &#9733;</option>
+                  <option value="6">6 &#9733;</option>
+                  <option value="7">7 &#9733;</option>
+                  <option value="8">8 &#9733;</option>
+                  <option value="9">9 &#9733;</option>
+                  <option value="10">10 &#9733;</option>
+                </select>
+              </form>
             </div>
             <% }) %> 
        </section>

@@ -10,15 +10,18 @@
   </header>
   <h2> Your evening alone starts here</h2> 
   <main>
-    <section>
+    <section class="wrapper">
+    <section class="container">
       <% searchResults.forEach(value =>{ %>
-        <article>
-
+        <article class="movie">
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <h2><%= value.title %></h2>
+        </article>
+
           <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
+
           <form action="/watchlist" method="POST">
             <input type="hidden" name="popularity" value="<%= value.popularity%>">
             <input type="hidden" name="poster_path" value="<%= value.poster_path%>">
@@ -30,11 +33,41 @@
             <input type="hidden" name="release_date" value="<%= value.release_date%>">
             <button type="submit">Add To Watch Later List</button>
           </form>
+
           <input type="hidden" value="<%= value.title %>">
-        </article>
+
+          <div class="modal" id="<%=value.movie_id%>Modal">
+            <img src="<%= value.poster_path%>" alt="<%= value.title %>">
+            <span class="close">close</span>
+            <h2><%= value.title %></h2>
+            <p><%= value.overview%></p>
+            <p> Release Date: <%= value.release_date%></p>
+            <p> Rating: <%= value.vote_average %></p>
+            <p> Your Rating: </p>
+            
+            <button id="add-rating">Add Rating</button>
+            <form action="/favorites/<%= value.movie_id %>?_method=PUT" method="POST">
+              <select name="">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <button type="submit">Update Rating</button>
+            </form>
+          </div>
+      
      <% }) %>
     </section>
+    </section>
   </main>
+  
   <%- include('./partials/footer.ejs') %>
 </body>
 </html>
