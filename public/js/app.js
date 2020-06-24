@@ -17,6 +17,7 @@ $('.movie').on('click', (event) => {
 
 $('.close').on('click', (event) => {
   $('.modal').hide();
+  $('.choose-rating').hide();
 })
 
 
@@ -31,7 +32,11 @@ $(document).ready(function(){
 
 
 
-$('#choose-rating').hide();
-$('#add-rating').on('click', (event) => {
-  $('#choose-rating').show();
+$('.choose-rating').hide();
+$('.add-rating').on('click', (event) => {
+  $('.choose-rating').show();
+})
+
+$('.submit').on('click',() => {
+  $('.choose-rating').hide();
 })
