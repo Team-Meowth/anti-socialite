@@ -35,6 +35,7 @@ app.get('/favorites', gotoFavorites);
 app.delete('/favorites/:movie_id', deleteFromFavorites); // movie_id isn't a thing yet. needs to be changed everywhere.
 app.post('/watchlist', insertIntoWatchlist);
 app.get('/watchlist', gotoWatchlist);
+app.put('/update:movie_id', updateUserRating)
 app.delete('/watchlist/:movie_id', deleteFromWatchlist);
 app.all('*', errorRoute);
 
@@ -264,7 +265,18 @@ function insertIntoMovies(request, response) {
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      response.status(200);
+      response.status(200).redirect('back');
+      // .send(alert('saved'));
+    }).catch(errorCatch);
+}
+
+function updateUserRating(request, response) {
+  let { user_rating, movie_id, user_id } = request.body 
+  let sql = 'UPDATE movies SET user_rating = $1 WHERE movie_id = $2 AND user_id = $3;';
+  let safeValues = [ user_rating, movie_id, user_id ];
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200).redirect('back')
     }).catch(errorCatch);
 }
 
@@ -369,6 +381,7 @@ function Movie(obj) {
   this.overview = obj.overview;
   if(this.overview.length > 254) this.overview = this.overview.slice(0, 250)+'...';
   this.release_date = obj.release_date;
+  this.user_rating = obj.user_rating;
 }
 
 function shuffle(array) {
