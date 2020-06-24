@@ -85,6 +85,10 @@ button:hover {
   font-family: 'Limelight', cursive;
 }
 
+.space {
+  height: 50px;
+}
+
 .movie img {
   border-radius: 10px;
   margin-left: 50px;
