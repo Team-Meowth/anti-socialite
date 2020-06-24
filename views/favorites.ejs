@@ -8,15 +8,23 @@
   <header>
     <%- include('./partials/header.ejs') %>
   </header>
-  <h2> Your evening alone starts here</h2> 
-  <main>
-    <section>
-      <% searchResults.forEach(value =>{ %>
-        <article>
 
+  <div id="clear"></div>
+  
+  <main>
+    <div class="space"></div>
+    <section class="wrapper">
+    <section class="container">
+      <% searchResults.forEach(value =>{ %>
+        <article class="movie">
+
+          <h3><%= value.title %></h3>
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
+<<<<<<< HEAD
           <h2><%= value.title %></h2>
 
+=======
+>>>>>>> 0f295aeebaf2572f196ddb68286840413ead2187
           <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
@@ -36,6 +44,7 @@
           <input type="hidden" value="<%= value.title %>">
         </article>
      <% }) %>
+    </section>
     </section>
   </main>
   <%- include('./partials/footer.ejs') %>
