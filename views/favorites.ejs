@@ -5,22 +5,26 @@
   <title>Your Favorites</title>
 </head>
 <body>
+  <header>
+    <%- include('./partials/header.ejs') %>
+  </header>
   <main>
     <section>
-      <% obj.forEach(value =>{
+      <% searchResults.forEach(value =>{ %>
         <article>
-          <img src="<%= value.poster_url %>" alt="<%= value.title %>">
+          <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <h2><%= value.title %></h2>
           <form action="_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
-          <form action="/watchlater" method="POST">
+          <form action="/watchlist" method="POST">
             <button type="submit">Add To Watch Later List</button>
           </form>
           <input type="hidden" value="<%= value.title %>">
         </article>
-      })
+     <% }) %>
     </section>
   </main>
+  <%- include('./partials/footer.ejs') %>
 </body>
 </html>
