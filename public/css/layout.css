@@ -1,9 +1,12 @@
 header {
-  background-color: black;;
+  background-color: #0B132B;
+  opacity: 0.9;
   font-size: xx-large;
   text-align: center;
-  height: 15vh;
-  padding-bottom: 30px;
+  height: 12vh;
+  padding-bottom: 60px;
+  position: fixed;
+  width: 100%;
 }
 
 .search {
@@ -16,9 +19,13 @@ header {
 
 }
 
-main {
-  background-color: #1C2541;
+body {
+  background-image: url("/images/blue-curtain.jpg");
+}
 
+main {
+  /* background-color: #1C2541; */
+  margin-top: 180px;
 
 }
 
