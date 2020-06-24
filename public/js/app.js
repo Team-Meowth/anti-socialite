@@ -18,3 +18,12 @@ $('.movie').on('click', (event) => {
 $('.close').on('click', (event) => {
   $('.modal').hide();
 })
+
+
+// hamburger menu`
+$(document).ready(function(){
+  $('#burger-container').on('click', function(){
+    console.log('I am clicked');
+    $(this).toggleClass('open');
+  });
+});
