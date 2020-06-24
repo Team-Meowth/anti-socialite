@@ -264,7 +264,7 @@ function insertIntoMovies(request, response) {
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      response.status(200);
+      response.status(200).redirect('back'); // add jquery to make an alert.
     }).catch(errorCatch);
 }
 
@@ -279,7 +279,7 @@ function insertIntoWatchlist(request, response) {
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      response.status(200);
+      response.status(200).redirect('back'); // add jquery to make an alert.
     }).catch(errorCatch);
 }
 
