@@ -126,9 +126,14 @@ top: 15px;
     width: 100%;
   } 
 
-  h1{
+  h1 {
     float: left;
   }
+
+  header h2 {
+    visibility: hidden;
+  }
+
 }
 
 
