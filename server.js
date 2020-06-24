@@ -26,8 +26,9 @@ app.get('/favorites', gotoFavorites);
 app.delete('/favorites/:movie_id', deleteFromFavorites);
 app.post('/watchlist', insertIntoWatchlist);
 app.get('/watchlist', gotoWatchlist);
-app.put('/update:movie_id', updateUserRating)
+app.put('/update/:movie_id', updateUserRating)
 app.delete('/watchlist/:movie_id', deleteFromWatchlist);
+app.get('/about',aboutRoute);
 app.all('*', errorRoute);
 
 function homeRoute(request, response){
@@ -38,6 +39,10 @@ function homeRoute(request, response){
       shuffle(movies);
       response.status(200).redirect(`/search/${movies[0].title}`);
     }).catch(error => console.error(error))
+}
+
+function aboutRoute(request,response){
+  response.status(200).render('./aboutus.ejs')
 }
 
 function searchRoute(request, response){
@@ -207,15 +212,19 @@ function gotoWatchlist(request, response){
     }).catch(errorCatch);
 }
 
+
 function updateUserRating(request, response) {
-  let { user_rating, movie_id } = request.body;
+  let user_rating = request.body.user_rating;
+  let movie_id = request.params.movie_id;
+  // console.log("here" + request.body.user_rating);
+  // console.log('there' + request.params.movie_id);
   let user_id = 1;
   let sql = 'UPDATE movies SET user_rating = $1 WHERE movie_id = $2 AND user_id = $3;';
   let safeValues = [ user_rating, movie_id, user_id ];
   
   client.query(sql, safeValues)
     .then(sqlResults => {
-      response.status(200).redirect('back')
+      response.status(200).redirect('back');
     }).catch(errorCatch);
 }
 

@@ -19,7 +19,7 @@
         <article class="movie">
 
           <h3><%= value.title %></h3>
-          <img src="<%= value.poster_path %>" alt="<%= value.title %>">
+          <img src="<%= value.poster_path %>" alt="<%= value.title %>" id="<%= value.movie_id %>">
           <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
@@ -45,23 +45,23 @@
             <p><%= value.overview%></p>
             <p> Release Date: <%= value.release_date%></p>
             <p> Rating: <%= value.vote_average %></p>
-            <p> Your Rating: </p>
+            <p> Your Rating: <%=value.user_rating%> </p>
             
-            <button id="add-rating">Add Rating</button>
-            <form action="/favorites/<%= value.movie_id %>?_method=PUT" method="POST">
-              <select name="">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+            <button class="add-rating">Add Rating</button>
+            <form class='choose-rating' method="POST" action="/update/<%=value.movie_id%>?_method=PUT">
+              <select name="user_rating">
+                <option value="1">1 &#9733;</option>
+                <option value="2">2 &#9733;</option>
+                <option value="3">3 &#9733;</option>
+                <option value="4">4 &#9733;</option>
+                <option value="5">5 &#9733;</option>
+                <option value="6">6 &#9733;</option>
+                <option value="7">7 &#9733;</option>
+                <option value="8">8 &#9733;</option>
+                <option value="9">9 &#9733;</option>
+                <option value="10">10 &#9733;</option>
               </select>
-              <button type="submit">Update Rating</button>
+              <button type="submit" class="submit">submit</button>
             </form>
           </div>
       
