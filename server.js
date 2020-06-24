@@ -31,18 +31,21 @@ app.get('/search', searchRoute);
 app.get('/search/:title', titleSearchRoute);
 app.post('/search', searchRoute);
 app.post('/favorites', insertIntoMovies); // here we'll incorporate the insertIntoMovies function
+app.get('/favorites', gotoFavorites);
+app.post('/watchlist', insertIntoWatchlist);
+app.get('/watchlist', gotoWatchlist);
 app.all('*', errorRoute);
 
 // Home Route Function
 function homeRoute(request, response){
   let sql = `SELECT TITLE FROM movies;`;
   client.query(sql)
-  .then(sqlResults => {
-    let movies = sqlResults.rows;
-    shuffle(movies);
-    // console.log(movies[0].title);
-    response.status(200).redirect(`/search/${movies[0].title}`);
-  }).catch(error => console.error(error))
+    .then(sqlResults => {
+      let movies = sqlResults.rows;
+      shuffle(movies);
+      // console.log(movies[0].title);
+      response.status(200).redirect(`/search/${movies[0].title}`);
+    }).catch(error => console.error(error))
 }
 
 function shuffle(array) {
@@ -217,6 +220,46 @@ function titleSearchRoute(request, response){
     }).catch(errorCatch);
 }
 
+function gotoFavorites(request, response){
+  console.log('Going to Favorites');
+
+  let userId = 1;
+
+  let sql = 'SELECT * FROM movies WHERE user_id = ($1);';
+
+  let safeValues = [userId];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      let finalFrontendArray = [];
+      sqlResults.rows.forEach(value => {
+        finalFrontendArray.push(value);
+      })
+      console.log(finalFrontendArray);
+      response.status(200).render('./favorites.ejs', {searchResults: finalFrontendArray});
+    }).catch(errorCatch);
+
+}
+
+function gotoWatchlist(request, response){
+  console.log('Going to watchlist');
+
+  let userId = 1;
+
+  let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
+
+  let safeValues = [userId];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      let finalFrontendArray = [];
+      sqlResults.rows.forEach(value => {
+        finalFrontendArray.push(value);
+      })
+      console.log(finalFrontendArray);
+      response.status(200).render('./watchlist.ejs', {searchResults: finalFrontendArray});
+    }).catch(errorCatch);
+}
 
 // 404 route
 function errorRoute(request, response){
@@ -252,16 +295,34 @@ function insertIntoMovies(request, response) {
   // this function will insert a movie into the database and assign it to a user as a favorite
   // this user id will later be updated with the real id
   let user_id = 1;
-  let {popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  console.log('1:', request.body);
+  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
   console.log('this is the object from insert into Movies function', request.body);
   let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
-  let safeValues = [popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id];
-  
+  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+
+  console.log('here: ', safeValues);
+
   client.query(sql, safeValues)
     .then(sqlResults => {
-      response.status(200).send('/favorites');
+      response.status(200);
     });
-};
+}
+
+function insertIntoWatchlist(request, response) {
+  // this function will insert a movie into the database and assign it to a user as a favorite
+  // this user id will later be updated with the real id
+  let user_id = 1;
+  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  console.log('this is the object from insert into Watchlist function', request.body);
+  let sql = `INSERT INTO watchlist ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200);
+    });
+}
 
 
 // Start pg and start server
