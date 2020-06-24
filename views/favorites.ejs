@@ -16,9 +16,11 @@
 
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <h2><%= value.title %></h2>
+
           <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
+          
           <form action="/watchlist" method="POST">
             <input type="hidden" name="popularity" value="<%= value.popularity%>">
             <input type="hidden" name="poster_path" value="<%= value.poster_path%>">
@@ -30,6 +32,7 @@
             <input type="hidden" name="release_date" value="<%= value.release_date%>">
             <button type="submit">Add To Watch Later List</button>
           </form>
+
           <input type="hidden" value="<%= value.title %>">
         </article>
      <% }) %>
