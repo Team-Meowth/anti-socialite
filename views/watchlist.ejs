@@ -14,8 +14,8 @@
         <article>
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <h2><%= value.title %></h2>
-          <form action="_method=DELETE" method="POST">
-            <button type="submit">Delete From Favorites</button>
+          <form action="/watchlist/<%= value.movie_id %>?_method=DELETE" method="POST"> <!-- Changed -->
+            <button type="submit">Delete From Watchlist</button>
           </form>
           <form action="/favorites" method="POST">
             <button type="submit">Add To Favorites</button>

@@ -12,9 +12,10 @@
     <section>
       <% searchResults.forEach(value =>{ %>
         <article>
+
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <h2><%= value.title %></h2>
-          <form action="_method=DELETE" method="POST">
+          <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
           <form action="/watchlist" method="POST">
