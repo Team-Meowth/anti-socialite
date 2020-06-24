@@ -28,6 +28,7 @@ app.post('/watchlist', insertIntoWatchlist);
 app.get('/watchlist', gotoWatchlist);
 app.put('/update/:movie_id', updateUserRating)
 app.delete('/watchlist/:movie_id', deleteFromWatchlist);
+app.get('/about',aboutRoute);
 app.all('*', errorRoute);
 
 function homeRoute(request, response){
@@ -38,6 +39,10 @@ function homeRoute(request, response){
       shuffle(movies);
       response.status(200).redirect(`/search/${movies[0].title}`);
     }).catch(error => console.error(error))
+}
+
+function aboutRoute(request,response){
+  response.status(200).render('./aboutus.ejs')
 }
 
 function searchRoute(request, response){
