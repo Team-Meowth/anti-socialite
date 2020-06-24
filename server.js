@@ -32,8 +32,10 @@ app.get('/search/:title', titleSearchRoute);
 app.post('/search', searchRoute);
 app.post('/favorites', insertIntoMovies); // here we'll incorporate the insertIntoMovies function
 app.get('/favorites', gotoFavorites);
+app.delete('/favorites/:movie_id', deleteFromFavorites); // movie_id isn't a thing yet. needs to be changed everywhere.
 app.post('/watchlist', insertIntoWatchlist);
 app.get('/watchlist', gotoWatchlist);
+app.delete('/watchlist/:movie_id', deleteFromWatchlist);
 app.all('*', errorRoute);
 
 // Home Route Function
@@ -46,19 +48,6 @@ function homeRoute(request, response){
       // console.log(movies[0].title);
       response.status(200).redirect(`/search/${movies[0].title}`);
     }).catch(error => console.error(error))
-}
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
 }
 
 // Initial search function
@@ -149,7 +138,7 @@ function searchRoute(request, response){
 // Search route based off of user's click
 function titleSearchRoute(request, response){
   let searchString = request.params.title;
-  console.log('here', searchString);
+  // console.log('here', searchString);
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
   const searchParams = {
@@ -221,7 +210,7 @@ function titleSearchRoute(request, response){
 }
 
 function gotoFavorites(request, response){
-  console.log('Going to Favorites');
+  // console.log('Going to Favorites');
 
   let userId = 1;
 
@@ -235,14 +224,14 @@ function gotoFavorites(request, response){
       sqlResults.rows.forEach(value => {
         finalFrontendArray.push(value);
       })
-      console.log(finalFrontendArray);
+      // console.log(finalFrontendArray);
       response.status(200).render('./favorites.ejs', {searchResults: finalFrontendArray});
     }).catch(errorCatch);
 
 }
 
 function gotoWatchlist(request, response){
-  console.log('Going to watchlist');
+  // console.log('Going to watchlist');
 
   let userId = 1;
 
@@ -256,8 +245,105 @@ function gotoWatchlist(request, response){
       sqlResults.rows.forEach(value => {
         finalFrontendArray.push(value);
       })
-      console.log(finalFrontendArray);
+      // console.log(finalFrontendArray);
       response.status(200).render('./watchlist.ejs', {searchResults: finalFrontendArray});
+    }).catch(errorCatch);
+}
+
+function insertIntoMovies(request, response) {
+  // this function will insert a movie into the database and assign it to a user as a favorite
+  // this user id will later be updated with the real id
+  let user_id = 1;
+  // console.log('1:', request.body);
+  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  // console.log('this is the object from insert into Movies function', request.body);
+  let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+
+  // console.log('here: ', safeValues);
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200);
+    }).catch(errorCatch);
+}
+
+function insertIntoWatchlist(request, response) {
+  // this function will insert a movie into the database and assign it to a user as a favorite
+  // this user id will later be updated with the real id
+  let user_id = 1;
+  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  // console.log('this is the object from insert into Watchlist function', request.body);
+  let sql = `INSERT INTO watchlist ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200);
+    }).catch(errorCatch);
+}
+
+// ---------------- WIP --------------------------------
+// function deleteFromFavorites(request, response){
+//   console.log('Is this what we want in the delete route?', request.params.movie_id);
+//   const sql = 'DELETE FROM movies WHERE movie_id = ($1);';
+
+//   const safeValues = [request.params.movie_id]
+//   //DELETE FROM movies WHERE movie_id=456301;
+//   client.query(sql, safeValues)
+//     .then(sqlResults => {
+
+//       response.status(200).redirect('/favorites'); // WIP
+//     })
+// }
+
+function deleteFromFavorites(request, response){
+  // console.log('Is this what we want in the delete route?', request.params.movie_id);
+  const sql = 'DELETE FROM movies WHERE movie_id = ($1);';
+
+  const safeValues = [request.params.movie_id]
+  //DELETE FROM movies WHERE movie_id=456301;
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      let userId = 1;
+      let sql = 'SELECT * FROM movies WHERE user_id = ($1);';
+
+      let safeValues = [userId];
+
+      client.query(sql, safeValues)
+        .then(sqlResults2 => {
+          let finalFrontendArray = [];
+          sqlResults2.rows.forEach(value => {
+            finalFrontendArray.push(value);
+          })
+          // console.log(finalFrontendArray);
+          response.status(200).render('./favorites.ejs', {searchResults: finalFrontendArray});
+        }).catch(errorCatch);
+    }).catch(errorCatch);
+}
+
+function deleteFromWatchlist(request, response){
+  // console.log('Is this what we want in the delete route?', request.params.movie_id);
+  const sql = 'DELETE FROM watchlist WHERE movie_id = ($1);';
+
+  const safeValues = [request.params.movie_id]
+  //DELETE FROM movies WHERE movie_id=456301;
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      let userId = 1;
+      let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
+
+      let safeValues = [userId];
+
+      client.query(sql, safeValues)
+        .then(sqlResults2 => {
+          let finalFrontendArray = [];
+          sqlResults2.rows.forEach(value => {
+            finalFrontendArray.push(value);
+          })
+          // console.log(finalFrontendArray);
+          response.status(200).render('./watchlist.ejs', {searchResults: finalFrontendArray});
+        }).catch(errorCatch);
     }).catch(errorCatch);
 }
 
@@ -267,18 +353,13 @@ function errorRoute(request, response){
   response.status(404).send('Browser error message, you have been 404d!')
 }
 
-// Message for catches
-function errorCatch(err){
-  console.error(err);
-}
-
 // Constructor function
 function Movie(obj) {
   this.popularity = obj.popularity;
   this.vote_count = obj.vote_count;
   this.poster_path = `https://image.tmdb.org/t/p/w200${obj.poster_path}`;
   this.video = obj.video;
-  this.id = obj.id;
+  this.id = obj.id; // TODO chance the property into movie_id
   this.backdrop_path = `https://image.tmdb.org/t/p/w200${obj.backdrop_path}`;
   this.original_language = obj.original_language;
   this.original_title = obj.original_title;
@@ -290,39 +371,24 @@ function Movie(obj) {
   this.release_date = obj.release_date;
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-function insertIntoMovies(request, response) {
-  // this function will insert a movie into the database and assign it to a user as a favorite
-  // this user id will later be updated with the real id
-  let user_id = 1;
-  console.log('1:', request.body);
-  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
-  console.log('this is the object from insert into Movies function', request.body);
-  let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
-  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
 
-  console.log('here: ', safeValues);
-
-  client.query(sql, safeValues)
-    .then(sqlResults => {
-      response.status(200);
-    });
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 }
 
-function insertIntoWatchlist(request, response) {
-  // this function will insert a movie into the database and assign it to a user as a favorite
-  // this user id will later be updated with the real id
-  let user_id = 1;
-  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
-  console.log('this is the object from insert into Watchlist function', request.body);
-  let sql = `INSERT INTO watchlist ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
-  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
-
-  client.query(sql, safeValues)
-    .then(sqlResults => {
-      response.status(200);
-    });
+// Message for catches
+function errorCatch(err){
+  console.error(err);
 }
+
 
 
 // Start pg and start server
