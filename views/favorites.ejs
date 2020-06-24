@@ -20,11 +20,10 @@
 
           <h3><%= value.title %></h3>
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
-<<<<<<< HEAD
+
           <h2><%= value.title %></h2>
 
-=======
->>>>>>> 0f295aeebaf2572f196ddb68286840413ead2187
+
           <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
