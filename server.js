@@ -30,6 +30,7 @@ app.get('/', homeRoute);
 app.get('/search', searchRoute);
 app.get('/search/:title', titleSearchRoute);
 app.post('/search', searchRoute);
+app.post('/favorites', insertIntoMovies); // here we'll incorporate the insertIntoMovies function
 app.all('*', errorRoute);
 
 // Home Route Function
@@ -39,8 +40,8 @@ function homeRoute(request, response){
   .then(sqlResults => {
     let movies = sqlResults.rows;
     shuffle(movies);
-    console.log(movies);
-    response.status(200).redirect('/search/movies[0]');
+    // console.log(movies[0].title);
+    response.status(200).redirect(`/search/${movies[0].title}`);
   }).catch(error => console.error(error))
 }
 
@@ -132,13 +133,8 @@ function searchRoute(request, response){
                     }
                   }
                   // console.log('this is votes output', votesMovieArray)
-                  // console.log('before we shuffle similarMovieArray', similarMovieArray)
-                  // shuffle(similarMovieArray);
-                  // shuffle(genreMovieArray);
-                  // shuffle(votesMovieArray);
-                  // console.log('after we shuffle similarMovieArray', similarMovieArray)
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
-                  console.log('this is final frontend array', finalFrontendArray);
+                  // console.log('this is final frontend array', finalFrontendArray);
                   response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
                 }).catch(errorCatch);
             }).catch(errorCatch);
@@ -250,6 +246,23 @@ function Movie(obj) {
   if(this.overview.length > 254) this.overview = this.overview.slice(0, 250)+'...';
   this.release_date = obj.release_date;
 }
+
+
+function insertIntoMovies(request, response) {
+  // this function will insert a movie into the database and assign it to a user as a favorite
+  // this user id will later be updated with the real id
+  let user_id = 1;
+  let {popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  console.log('this is the object from insert into Movies function', request.body);
+  let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let safeValues = [popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id];
+  
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200).send('/favorites');
+    });
+};
+
 
 // Start pg and start server
 client.connect()
