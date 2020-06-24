@@ -11,10 +11,11 @@
     <%- include('./partials/header.ejs') %>
   </header>
 
- <h2> Your evening alone starts here</h2> 
 
-  <main>
-    <form action="/search" method="POST">
+<div id="clear"></div>
+  
+  <main> 
+    <form id="search-field" action="/search" method="POST">
       <fieldset>
         <input class="search" type="text" name="search" placeholder="search for movies...">
         <button type="submit">Search</button>
@@ -24,7 +25,7 @@
       <section class="container">
         <h2>By Search</h2>
           <% searchResults[0].forEach(movie => { %>
-          
+            
             
             <article class="movie">
               <h3> <%= movie.title %> </h3>

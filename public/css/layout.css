@@ -1,5 +1,6 @@
 header {
   background-color: #0B132B;
+  background-image: linear-gradient(to bottom right, #0B132B, #3f397e);
   opacity: 0.9;
   font-size: xx-large;
   text-align: center;
@@ -19,35 +20,75 @@ header {
 
 }
 
+#clear {
+  height: 120px;
+}
+
+#search-field {
+  margin: 30px;
+  
+}
+
 body {
   background-image: url("/images/blue-curtain.jpg");
 }
 
-main {
-  /* background-color: #1C2541; */
-  margin-top: 180px;
-
+header h2 {
+  color: white;
+  font-family: 'Limelight', cursive;
+  font-size: 50%;
 }
 
 .container {
   border: 2px solid #6FFFE9;
-  max-width: 80vw;
+  max-width: 300px;
   margin: auto auto 30px auto;
   background-color: #0B132B;
   border-radius: 10px;
   color: white;
 }
 
+.container h2 {
+  text-align: center;
+  padding: 20px;
+  font-family: 'Limelight', cursive;
+  font-size: 125%;
+}
+
 .movie {
   height: 300px;
-  width: 200px;
+  width: 300px;
   border-radius: 25px;
   margin-bottom: 20px;
   color: #6FFFE9;
 }
 
+#submit {
+  padding-top: 10px;
+}
+
+button {
+  text-align: center;
+  border-radius: 10px;
+  margin: 2px;
+  font-size: 65%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.container h3 {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-family: 'Limelight', cursive;
+}
+
 .movie img {
   border-radius: 10px;
+  margin-left: 50px;
+
 }
 
 .modal{
@@ -68,4 +109,24 @@ main {
   float: left;
   max-height: 80%;
   padding: 1em;
+}
+
+
+@media screen and (min-width: 961px) {
+
+  .wrapper {
+    display: flex;
+  }
+
+  .container {
+    flex-direction: row;
+    /* max-width: 500px; */
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .movie img {
+    
+  }
+
 }
