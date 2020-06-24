@@ -29,6 +29,11 @@ header {
   
 }
 
+.profiles {
+  width: 150px;
+  max-height: 200px;
+}
+
 body {
   background-image: url("/images/blue-curtain.jpg");
 }
@@ -120,6 +125,7 @@ button:hover {
 
   .wrapper {
     display: flex;
+    align-items: stretch;
   }
 
   .container {
@@ -129,8 +135,8 @@ button:hover {
     padding-right: 20px;
   }
 
-  .movie img {
-    
+  .bio {
+    height: 600px;
   }
 
 }
