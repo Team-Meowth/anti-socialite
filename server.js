@@ -314,7 +314,7 @@ function insertIntoWatchlist(request, response) {
   // this user id will later be updated with the real id
   let user_id = 1;
   let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
-  console.log('this is the object from insert into Movies function', request.body);
+  console.log('this is the object from insert into Watchlist function', request.body);
   let sql = `INSERT INTO watchlist ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
   let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
 
