@@ -1,0 +1,110 @@
+
+
+h1 {
+  color: #eee;
+  padding: 30px;
+  position:relative;
+  top:20px;
+}
+/* burger menu */
+#burger-container{
+  position: relative;
+  margin-bottom: 40px;/* margin: 200px auto; */
+  display: flex; 
+}
+
+#burger{
+  cursor: pointer;
+  display: block;
+  margin-left: 20px;
+}
+
+/* creating burger menu visual */
+#burger span{
+  background: #eee;
+  display: block;
+  width: 50px;
+  height: 5px;
+  margin-bottom: 6px;
+  position: relative;
+  top: 0;
+  transition: all ease-in-out 0.4s;
+}
+
+#burger a{
+  display: none;
+}
+
+/* when open/clicked on */
+#burger-container.open{
+  width: 600px;
+  display: flex;
+}
+
+/* making and X out of the burger */
+#burger-container.open span:nth-child(2),
+#burger-container.open span:nth-child(3){
+  width: 0;
+  opacity: 0;
+}
+
+#burger-container.open span:nth-child(4){
+  transform: rotate(45deg);
+  top: -16px;
+}
+
+#burger-container.open span:nth-child(1){
+transform: rotate(-45deg);
+top: 16px;
+}
+
+#burger-container.open nav{
+  width: 600px;
+  background-color: black;
+  height: 750px;
+  opacity: 0.8;
+}
+
+#burger-container.open a{
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+
+@media screen and (min-width: 961px) and (max-width: 1880px) {
+
+  #burger{
+    display: none;
+
+  }
+  
+  .menu{
+    color: #eee;
+    padding: 20px;
+    margin-top: 30px;
+    
+  }
+
+  .menu a{
+    color: #eee;
+    visibility: visible;
+    flex-direction: row;
+  }
+
+  #desktop-menu{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+  }
+
+  nav{
+    width: 100%;
+  }
+
+  h1 {
+    float: left
+  } */
+
+ 

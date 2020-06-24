@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 3001;
 
 // Use Middleware
 app.use(express.urlencoded({extended:true}));
-app.use(express.static('public'));
+app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
@@ -29,17 +29,41 @@ app.use(methodOverride('_method'));
 app.get('/', homeRoute);
 app.get('/search', searchRoute);
 app.get('/search/:title', titleSearchRoute);
+app.post('/search', searchRoute);
+app.post('/favorites', insertIntoMovies); // here we'll incorporate the insertIntoMovies function
+app.get('/favorites', gotoFavorites);
+app.post('/watchlist', insertIntoWatchlist);
+app.get('/watchlist', gotoWatchlist);
 app.all('*', errorRoute);
 
 // Home Route Function
 function homeRoute(request, response){
-  console.log('I am on the console');
-  response.status(200).send('I am on the browser');
+  let sql = `SELECT TITLE FROM movies;`;
+  client.query(sql)
+    .then(sqlResults => {
+      let movies = sqlResults.rows;
+      shuffle(movies);
+      // console.log(movies[0].title);
+      response.status(200).redirect(`/search/${movies[0].title}`);
+    }).catch(error => console.error(error))
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 }
 
 // Initial search function
 function searchRoute(request, response){
-  let searchString = 'Star Wars';
+  let searchString = request.body.search;
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
   const searchParams = {
@@ -67,6 +91,7 @@ function searchRoute(request, response){
         .query(idParams)
         .then(similarData => {
           let similarMovieArray = [];
+          shuffle(similarData.body.results);
           for(let i=0; i<similarData.body.results.length; i++){
             similarMovieArray.push(new Movie(similarData.body.results[i]))
             if(i >= 2) {
@@ -85,6 +110,7 @@ function searchRoute(request, response){
             .query(genreParams)
             .then(genreData => {
               let genreMovieArray = [];
+              shuffle(genreData.body.results);
               for (let i=0; i<genreData.body.results.length; i++){
                 genreMovieArray.push(new Movie(genreData.body.results[i]))
                 if(i >= 2) {
@@ -102,6 +128,7 @@ function searchRoute(request, response){
                 .query(votesParams)
                 .then(votesData => {
                   let votesMovieArray = [];
+                  shuffle(votesData.body.results);
                   for (let i=0; i<votesData.body.results.length; i++){
                     votesMovieArray.push(new Movie(votesData.body.results[i]))
                     if(i >= 2) {
@@ -193,6 +220,46 @@ function titleSearchRoute(request, response){
     }).catch(errorCatch);
 }
 
+function gotoFavorites(request, response){
+  console.log('Going to Favorites');
+
+  let userId = 1;
+
+  let sql = 'SELECT * FROM movies WHERE user_id = ($1);';
+
+  let safeValues = [userId];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      let finalFrontendArray = [];
+      sqlResults.rows.forEach(value => {
+        finalFrontendArray.push(value);
+      })
+      console.log(finalFrontendArray);
+      response.status(200).render('./favorites.ejs', {searchResults: finalFrontendArray});
+    }).catch(errorCatch);
+
+}
+
+function gotoWatchlist(request, response){
+  console.log('Going to watchlist');
+
+  let userId = 1;
+
+  let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
+
+  let safeValues = [userId];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      let finalFrontendArray = [];
+      sqlResults.rows.forEach(value => {
+        finalFrontendArray.push(value);
+      })
+      console.log(finalFrontendArray);
+      response.status(200).render('./watchlist.ejs', {searchResults: finalFrontendArray});
+    }).catch(errorCatch);
+}
 
 // 404 route
 function errorRoute(request, response){
@@ -222,6 +289,41 @@ function Movie(obj) {
   if(this.overview.length > 254) this.overview = this.overview.slice(0, 250)+'...';
   this.release_date = obj.release_date;
 }
+
+
+function insertIntoMovies(request, response) {
+  // this function will insert a movie into the database and assign it to a user as a favorite
+  // this user id will later be updated with the real id
+  let user_id = 1;
+  console.log('1:', request.body);
+  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  console.log('this is the object from insert into Movies function', request.body);
+  let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+
+  console.log('here: ', safeValues);
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200);
+    });
+}
+
+function insertIntoWatchlist(request, response) {
+  // this function will insert a movie into the database and assign it to a user as a favorite
+  // this user id will later be updated with the real id
+  let user_id = 1;
+  let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
+  console.log('this is the object from insert into Watchlist function', request.body);
+  let sql = `INSERT INTO watchlist ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      response.status(200);
+    });
+}
+
 
 // Start pg and start server
 client.connect()

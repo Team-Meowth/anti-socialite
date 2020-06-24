@@ -1,50 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/reset.css" type="text/css">
-  <link rel="stylesheet" href="/css/base.css" type="text/css">
-  <link rel="stylesheet" href="/css/layout.css" type="text/css">
-  <link rel="stylesheet" href="/css/modules.css" type="text/css">
+
+  <%- include('./partials/head.ejs') %>
+    <title>Intro Page</title>
+
 </head>
 <body>
   <header>
-
+    <%- include('./partials/header.ejs') %>
   </header>
 
+  <h2> Your evening alone starts here</h2>
 
   <main>
-    <form>
-      <input>
+    <form action="/search" method="POST">
+      <fieldset>
+        <input class="search" type="text" name="search" placeholder="search for movies...">
+        <button type="submit">Search</button>
+      </fieldset>
     </form>
     <section class="wrapper">
-      <% searchResults.forEach(movieArr => { %>
-        <section class="container">
-          <% movieArr.forEach(movie => { %>
-            <form action="/add" method="POST">
-
-              <article class="movie">
-                <h2> <%= movie.title %> </h2>
-                <img src="<%= movie.poster_path %>" alt="<%= movie.title %>">
-              </article>
-
+      <section class="container">
+        <h2>By Search</h2>
+          <% searchResults[0].forEach(movie => { %>
+          
+            
+            <article class="movie">
+              <h3> <%= movie.title %> </h3>
+              <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
+            </article>
+            
+            <form action="/favorites" method="POST">
+              <input type="hidden" name="popularity" value="<%= movie.popularity%>">
+              <input type="hidden" name="poster_path" value="<%= movie.poster_path%>">
+              <input type="hidden" name="id" value="<%= movie.id%>">
+              <input type="hidden" name="backdrop_path" value="<%= movie.backdrop_path%>">
               <input type="hidden" name="title" value="<%= movie.title %>">
-              <input type="hidden" name="image" value="<%= movie.image %>">
+              <input type="hidden" name="vote_average" value="<%= movie.vote_average%>">
+              <input type="hidden" name="overview" value="<%= movie.overview%>">
+              <input type="hidden" name="release_date" value="<%= movie.release_date%>">
 
+              <button type="submit">Add To Favorites</button>
             </form>
+
+            <form action="/watchlist" method="POST">
+              <input type="hidden" name="popularity" value="<%= movie.popularity%>">
+              <input type="hidden" name="poster_path" value="<%= movie.poster_path%>">
+              <input type="hidden" name="id" value="<%= movie.id%>">
+              <input type="hidden" name="backdrop_path" value="<%= movie.backdrop_path%>">
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="vote_average" value="<%= movie.vote_average%>">
+              <input type="hidden" name="overview" value="<%= movie.overview%>">
+              <input type="hidden" name="release_date" value="<%= movie.release_date%>">
+              <button type="submit">Add To Watchlist</button>
+            </form>
+
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
-          <% }) %>
-        </section>
-      <% }) %> 
+
+            <div class="modal" id="<%=movie.id%>Modal">
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
+              <span class="close">close</span>
+              <h2><%= movie.title %></h2>
+              <p><%= movie.overview%></p>
+              <p> Release Date: <%= movie.release_date%></p>
+              <p> Rating: <%= movie.vote_average %></p>
+            </div>
+            <% }) %> 
+       </section>
+       <section class="container">
+        <h2>By Genre</h2>
+          <% searchResults[1].forEach(movie => { %>
+          
+            
+            <article class="movie">
+              <h3> <%= movie.title %> </h3>
+              <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
+            </article>
+            
+            <form action="/favorites" method="POST">
+              <input type="hidden" name="popularity" value="<%= movie.popularity%>">
+              <input type="hidden" name="poster_path" value="<%= movie.poster_path%>">
+              <input type="hidden" name="id" value="<%= movie.id%>">
+              <input type="hidden" name="backdrop_path" value="<%= movie.backdrop_path%>">
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="vote_average" value="<%= movie.vote_average%>">
+              <input type="hidden" name="overview" value="<%= movie.overview%>">
+              <input type="hidden" name="release_date" value="<%= movie.release_date%>">
+
+              <button type="submit">Add To Favorites</button>
+            </form>
+
+            <form action="/watchlist" method="POST">
+              <input type="hidden" name="popularity" value="<%= movie.popularity%>">
+              <input type="hidden" name="poster_path" value="<%= movie.poster_path%>">
+              <input type="hidden" name="id" value="<%= movie.id%>">
+              <input type="hidden" name="backdrop_path" value="<%= movie.backdrop_path%>">
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="vote_average" value="<%= movie.vote_average%>">
+              <input type="hidden" name="overview" value="<%= movie.overview%>">
+              <input type="hidden" name="release_date" value="<%= movie.release_date%>">
+              <button type="submit">Add To Watchlist</button>
+            </form>
+
+            <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
+            
+            <div class="modal" id="<%=movie.id%>Modal">
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
+              <span class="close">close</span>
+              <h2><%= movie.title %></h2>
+              <p><%= movie.overview%></p>
+              <p> Release Date: <%= movie.release_date%></p>
+              <p> Rating: <%= movie.vote_average %></p>
+            </div>
+            <% }) %> 
+       </section>
+       <section class="container">
+        <h2>By Popularity</h2>
+          <% searchResults[2].forEach(movie => { %>
+           
+            
+            <article class="movie">
+              <h3> <%= movie.title %> </h3>
+              <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
+            </article>
+            
+            <form action="/favorites" method="POST">
+              <input type="hidden" name="popularity" value="<%= movie.popularity%>">
+              <input type="hidden" name="poster_path" value="<%= movie.poster_path%>">
+              <input type="hidden" name="id" value="<%= movie.id%>">
+              <input type="hidden" name="backdrop_path" value="<%= movie.backdrop_path%>">
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="vote_average" value="<%= movie.vote_average%>">
+              <input type="hidden" name="overview" value="<%= movie.overview%>">
+              <input type="hidden" name="release_date" value="<%= movie.release_date%>">
+
+              <button type="submit">Add To Favorites</button>
+            </form>
+
+            <form action="/watchlist" method="POST">
+              <input type="hidden" name="popularity" value="<%= movie.popularity%>">
+              <input type="hidden" name="poster_path" value="<%= movie.poster_path%>">
+              <input type="hidden" name="id" value="<%= movie.id%>">
+              <input type="hidden" name="backdrop_path" value="<%= movie.backdrop_path%>">
+              <input type="hidden" name="title" value="<%= movie.title %>">
+              <input type="hidden" name="vote_average" value="<%= movie.vote_average%>">
+              <input type="hidden" name="overview" value="<%= movie.overview%>">
+              <input type="hidden" name="release_date" value="<%= movie.release_date%>">
+              <button type="submit">Add To Watchlist</button>
+            </form>
+
+            <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
+            
+            <div class="modal" id="<%=movie.id%>Modal">
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
+              <span class="close">close</span>
+              <h2><%= movie.title %></h2>
+              <p><%= movie.overview%></p>
+              <p> Release Date: <%= movie.release_date%></p>
+              <p> Rating: <%= movie.vote_average %></p>
+            </div>
+            <% }) %> 
+       </section>
     </section>
   </main>
 
-  <footer>
+  <%- include('./partials/footer.ejs') %>
 
-  </footer>
 </body>
 </html>
-
-
