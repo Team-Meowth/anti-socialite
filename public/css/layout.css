@@ -1,0 +1,64 @@
+header {
+  background-color: black;;
+  font-size: xx-large;
+  text-align: center;
+  height: 15vh;
+  padding-bottom: 30px;
+}
+
+.search {
+  padding: 10px;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #6FFFE9;
+  color: #6FFFE9;
+  border-radius: 10px;
+  outline: none;
+
+}
+
+main {
+  background-color: #1C2541;
+
+
+}
+
+.container {
+  border: 2px solid #6FFFE9;
+  max-width: 80vw;
+  margin: auto auto 30px auto;
+  background-color: #0B132B;
+  border-radius: 10px;
+  color: white;
+}
+
+.movie {
+  height: 300px;
+  width: 200px;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  color: #6FFFE9;
+}
+
+.movie img {
+  border-radius: 10px;
+}
+
+.modal{
+  border: 4px solid red;
+  background-color: black;
+  z-index: 1;
+  position: fixed;
+  width: 90%;
+  height: 80%;
+  /* margin: 15% 15%; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+.modal img {
+  float: left;
+  max-height: 80%;
+  padding: 1em;
+}

@@ -30,6 +30,9 @@
     - Column 2 - Movies with the same genre
     - Column 2 - Movies with similar popularity
 
+## Deployment Guidelines
+Make sure to run command `psql -f schema.sql -d anti_social` as well as the commands to insert seed values as follows: `psql -f seed.sql -d anti_social`
+
 ## Possible movie render ejs script
 ``` JavaScript
 <% finalFrontendArray.forEach((value, index) =>{ %>
