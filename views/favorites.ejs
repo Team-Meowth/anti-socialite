@@ -8,16 +8,18 @@
   <header>
     <%- include('./partials/header.ejs') %>
   </header>
-  <h2> Your evening alone starts here</h2> 
+
+  <div id="clear"></div>
+  
   <main>
+    <div class="space"></div>
     <section class="wrapper">
     <section class="container">
       <% searchResults.forEach(value =>{ %>
         <article class="movie">
-          <img src="<%= value.poster_path %>" alt="<%= value.title %>">
-          <h2><%= value.title %></h2>
-        </article>
 
+          <h3><%= value.title %></h3>
+          <img src="<%= value.poster_path %>" alt="<%= value.title %>">
           <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
             <button type="submit">Delete From Favorites</button>
           </form>
