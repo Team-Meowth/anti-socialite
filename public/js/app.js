@@ -20,6 +20,8 @@ $('.close').on('click', (event) => {
   $('.choose-rating').hide();
 })
 
+//add
+
 
 
 // hamburger menu`

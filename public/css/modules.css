@@ -98,6 +98,22 @@ top: 15px;
   cursor: pointer;
 }
 
+.user-search-container {
+  width: 100vw;
+  display: flex;
+  background-color: blue;
+}
+.user-search {
+  background-color: red;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+.user-search img {
+  max-width: 100px;
+}
+
 @media screen and (min-width: 961px) {
 
   #burger-container{
