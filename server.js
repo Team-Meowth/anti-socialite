@@ -186,7 +186,7 @@ function titleSearchRoute(request, response){
 
 function gotoFavorites(request, response){
   let userId = 1;
-  let sql = 'SELECT * FROM movies WHERE user_id = ($1);';
+  let sql = 'SELECT * FROM movies WHERE user_id = ($1) ORDER BY id DESC;';
   let safeValues = [userId];
 
   client.query(sql, safeValues)
@@ -201,7 +201,7 @@ function gotoFavorites(request, response){
 
 function gotoWatchlist(request, response){
   let userId = 1;
-  let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
+  let sql = 'SELECT * FROM watchlist WHERE user_id = ($1) ORDER BY id DESC;';
   let safeValues = [userId];
 
   client.query(sql, safeValues)
@@ -230,16 +230,41 @@ function updateUserRating(request, response) {
     }).catch(errorCatch);
 }
 
+function doesMovieExist(id) {
+  let sql = `SELECT title from movies where id = ($1);`;
+  let safeValues = [id];
+  console.log(sql, safeValues)
+  client.query(sql, safeValues)
+    .then(sqlResults => {
+      if (sqlResults.rows > 0) {
+        console.log('6')
+        return true;
+      } else {
+        console.log(sqlResults)
+        return false;
+      }
+    })
+}
+
 function insertIntoMovies(request, response) {
   let user_id = 1;
   let {popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date} = request.body;
-  let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
-  let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
+  console.log('checking if exists')
+  if (doesMovieExist(id) === true) {
+    console.log('movies already exists')
+    let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+    let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
 
-  client.query(sql, safeValues)
-    .then(sqlResults => {
-      response.status(200).redirect('back');
-    }).catch(errorCatch);
+    client.query(sql, safeValues)
+      .then(sqlResults => {
+        console.log('did add to favorites')
+        response.status(200).redirect('back');
+      }).catch(errorCatch);
+  } else {
+    console.log('did not add to favorites')
+    response.status(200).redirect('back');
+
+  }
 }
 
 function insertIntoWatchlist(request, response) {
