@@ -29,7 +29,7 @@ h1 a:hover {
 /* burger menu */
 
 #burger {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 #burger-container{
   position: relative;
@@ -43,7 +43,7 @@ h1 a:hover {
 #burger span{
   background: #eee;
   display: block;
-  width: 50px;
+  width: 45px;
   height: 4px;
   margin-bottom: 6px;
   position: relative;
@@ -159,6 +159,10 @@ top: 15px;
 
 .container button:active {
   box-shadow: 0 3px #020303;
+}
+
+#top{
+  margin-left: 50px;
 }
 
 
