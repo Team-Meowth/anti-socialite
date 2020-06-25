@@ -11,6 +11,14 @@ header {
   /* play here  */
 }
 
+footer {
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
+  height: 60px;
+  width: 100%;
+  color: white;
+  margin-top: 30px;
+}
+
 .search {
   padding: 10px;
   background: rgba(0,0,0,0.3);
@@ -144,6 +152,21 @@ p {
   font-family: 'Josefin Sans', sans-serif;
 }
 
+#fave {
+  border: 2px solid #6FFFE9;
+  max-width: 350px;
+  height: 400px;
+  margin: auto auto 30px auto;
+  background-color: #0B132B;
+  border-radius: 10px;
+  color: white;
+}
+
+#faves {
+  border: none;
+  background-color: transparent;
+}
+
 
 @media screen and (min-width: 961px) {
 
@@ -164,23 +187,27 @@ p {
     /* max-width: 500px; */
     padding-left: 20px;
     padding-right: 20px;
-    height: 1000px;
+    height: 700px;
   }
+   
 
-  /* #creators {
-    display: flex;
-    align-items: flex-start;
-  } */
-
-  .search{
+  .search {
     position: relative;
     z-index: 1;
-    /* play here */
   }
 
   .modal img{
     max-width: 500px;
   }
+
+  footer {
+    background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
+    height: 60px;
+    width: 100%;
+    color: white;
+    margin-top: 30px;
+  }
+  
 
 
 }

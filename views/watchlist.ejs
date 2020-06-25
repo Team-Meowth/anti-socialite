@@ -14,8 +14,9 @@
   <main>
     <div class="space"></div>
     <section class="wrapper">
-    <section class="container">
+    <section id="faves" class="container">
       <% searchResults.forEach(value =>{ %>
+        <div id="fave">
         <article class="movie">
           <h3><%= value.title %></h3>
           <img src="<%= value.poster_path %>" alt="<%= value.title %>" id="<%= value.movie_id %>">
@@ -37,6 +38,7 @@
             <button type="submit">Add To Favorites</button>
           </form>
           <input type="hidden" value="<%= value.title %>">
+        </div>
 
           <!-- Work on modal -->
           <div class="modal" id="<%=value.movie_id%>Modal">
