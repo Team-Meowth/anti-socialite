@@ -297,10 +297,10 @@ function deleteFromWatchlist(request, response){
 function Movie(obj) {
   this.popularity = obj.popularity;
   this.vote_count = obj.vote_count;
-  this.poster_path = `https://image.tmdb.org/t/p/w200${obj.poster_path}`;
+  this.poster_path = `https://image.tmdb.org/t/p/w500${obj.poster_path}`;
   this.video = obj.video;
   this.id = obj.id; // TODO chance the property into movie_id
-  this.backdrop_path = `https://image.tmdb.org/t/p/w200${obj.backdrop_path}`;
+  this.backdrop_path = `https://image.tmdb.org/t/p/w500${obj.backdrop_path}`;
   this.original_language = obj.original_language;
   this.original_title = obj.original_title;
   this.genre_ids = obj.genre_ids;
