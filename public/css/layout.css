@@ -1,6 +1,5 @@
 header {
-  background-color: #0B132B;
-  background-image: linear-gradient(to bottom right, #0B132B, #3f397e);
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   /* opacity: 0.9; */
   font-size: xx-large;
   text-align: center;
@@ -99,6 +98,7 @@ button:hover {
   border-radius: 10px;
   margin-left: 50px;
   max-width: 200px;
+  cursor: pointer;
 
 }
 
@@ -122,6 +122,10 @@ button:hover {
   max-height: 80%;
   padding: 1em;
   max-width: 300px;
+}
+
+p{
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 
