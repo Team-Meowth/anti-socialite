@@ -18,11 +18,11 @@
       <% searchResults.forEach(value =>{ %>
         <article class="movie">
           <h3><%= value.title %></h3>
-          <img src="<%= value.poster_path %>" alt="<%= value.title %>">
+          <img src="<%= value.poster_path %>" alt="<%= value.title %>" id="<%= value.movie_id %>">
         </article>
 
           <form action="/watchlist/<%= value.movie_id %>?_method=DELETE" method="POST"> <!-- Changed -->
-            <button type="submit">Delete From Watchlist</button>
+            <button type="submit">Remove From Watchlist</button>
           </form>
           
           <form action="/favorites" method="POST">
@@ -46,7 +46,6 @@
             <p><%= value.overview%></p>
             <p> Release Date: <%= value.release_date%></p>
             <p> Rating: <%= value.vote_average %></p>
-            <p> Your Rating: <%=value.user_rating%> </p>
           </div>
 
       <% }) %>
