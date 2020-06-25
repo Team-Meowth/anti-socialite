@@ -1,6 +1,5 @@
 header {
-  background-color: #0B132B;
-  background-image: linear-gradient(to bottom right, #0B132B, #3f397e);
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   /* opacity: 0.9; */
   font-size: xx-large;
   text-align: center;
@@ -99,6 +98,7 @@ button:hover {
   border-radius: 10px;
   margin-left: 50px;
   max-width: 200px;
+  cursor: pointer;
 
 }
 
@@ -124,6 +124,10 @@ button:hover {
   max-width: 300px;
 }
 
+p {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
 
 @media screen and (min-width: 961px) {
 
@@ -143,6 +147,11 @@ button:hover {
     height: 600px;
   }
 
+  /* #creators {
+    display: flex;
+    align-items: flex-start;
+  } */
+
   .search{
     position: relative;
     z-index: 1;
@@ -152,5 +161,6 @@ button:hover {
   .modal img{
     max-width: 500px;
   }
+
 
 }
