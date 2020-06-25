@@ -5,18 +5,21 @@ h1 {
   padding: 30px;
   position:relative;
   top:20px;
+  font-family: 'Limelight', cursive;
+  font-size: 36px;
 }
+
+h2 {
+    font-family: 'Crimson Pro', serif;
+  }
+
 /* burger menu */
 #burger-container{
   position: relative;
-  margin-bottom: 40px;/* margin: 200px auto; */
   display: flex; 
-}
-
-#burger{
+  bottom: 40px;
   cursor: pointer;
   display: block;
-  margin-left: 20px;
 }
 
 /* creating burger menu visual */
@@ -24,7 +27,7 @@ h1 {
   background: #eee;
   display: block;
   width: 50px;
-  height: 5px;
+  height: 4px;
   margin-bottom: 6px;
   position: relative;
   top: 0;
@@ -50,61 +53,96 @@ h1 {
 
 #burger-container.open span:nth-child(4){
   transform: rotate(45deg);
-  top: -16px;
+  top: -15px;
 }
 
 #burger-container.open span:nth-child(1){
 transform: rotate(-45deg);
-top: 16px;
+top: 15px;
 }
 
+/* open menu */
+
 #burger-container.open nav{
-  width: 600px;
-  background-color: black;
-  height: 750px;
-  opacity: 0.8;
+  width: 550px;
+  background-image: url("/images/blue-curtain.jpg");
+  height: 800px;
 }
 
 #burger-container.open a{
+  color: #eee;
   visibility: visible;
   display: flex;
   flex-direction: column;
   width: 200px;
+  padding: 30px;
+  font-size: 22px;
+  margin: auto;
 }
 
+#burger-container.open .menu{
+  display: none;
+}
 
-@media screen and (min-width: 961px) and (max-width: 1880px) {
+#desktop-menu{
+  display: none;
+}
 
-  #burger{
+@media screen and (min-width: 961px) {
+
+  #burger-container{
     display: none;
-
-  }
+  } 
   
   .menu{
+    display: flex;
     color: #eee;
     padding: 20px;
-    margin-top: 30px;
-    
+    margin-top: 70px;
+    font-size: 24px; 
+  }
+
+  #desktop-menu{
+    display: inline-block;
+  }
+
+   #desktop-menu nav{
+    display: flex;
+    justify-content: center;
   }
 
   .menu a{
     color: #eee;
     visibility: visible;
     flex-direction: row;
-  }
-
-  #desktop-menu{
-    display: flex;
-    justify-content: center;
-    padding-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   nav{
     width: 100%;
-  }
+  } 
 
   h1 {
-    float: left
-  } */
+    float: left;
+  }
+
+  header h2 {
+    visibility: hidden;
+  }
+
+}
+
+footer {
+  background-color: #0B132B;
+  height: 60px;
+  color: white;
+}
+
+p {
+  font-family: 'Crimson Pro', serif;
+  padding: 20px;
+  font-size: 18px;
+}
+
 
  

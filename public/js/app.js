@@ -17,7 +17,9 @@ $('.movie').on('click', (event) => {
 
 $('.close').on('click', (event) => {
   $('.modal').hide();
+  $('.choose-rating').hide();
 })
+
 
 
 // hamburger menu`
@@ -27,3 +29,14 @@ $(document).ready(function(){
     $(this).toggleClass('open');
   });
 });
+
+
+
+$('.choose-rating').hide();
+$('.add-rating').on('click', (event) => {
+  $('.choose-rating').show();
+})
+
+$('.submit').on('click',() => {
+  $('.choose-rating').hide();
+})

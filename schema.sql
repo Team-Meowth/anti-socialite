@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS movies CASCADE;
+DROP TABLE IF EXISTS watchlist CASCADE;
 
 
 CREATE TABLE users ( 
@@ -10,15 +11,24 @@ CREATE TABLE users (
 CREATE TABLE movies (
   id SERIAL PRIMARY KEY,
   popularity real,
-  -- vote_count int,
-  -- video boolean,
+  poster_path VARCHAR(255),
+    backdrop_path VARCHAR(255),
+  movie_id INT,
+  title VARCHAR(255),
+  vote_average REAL,
+  overview VARCHAR(8000),
+  release_date DATE,
+  user_rating INT,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE watchlist (
+  id SERIAL PRIMARY KEY,
+  popularity real,
   poster_path VARCHAR(255),
   movie_id INT,
-  -- adult boolean,
   backdrop_path VARCHAR(255),
-  -- original_language VARCHAR(255),
-  -- original_title VARCHAR(255),
-  -- genre_ids integer,
   title VARCHAR(255),
   vote_average REAL,
   overview VARCHAR(8000),
@@ -28,3 +38,4 @@ CREATE TABLE movies (
 );
 
 SELECT * FROM movies JOIN users ON movies.user_id = users.id;
+SELECT * FROM watchlist JOIN users ON watchlist.user_id = users.id;
