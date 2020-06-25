@@ -133,5 +133,17 @@ top: 15px;
 
 }
 
+footer {
+  background-color: #0B132B;
+  height: 60px;
+  color: white;
+}
+
+p {
+  font-family: 'Crimson Pro', serif;
+  padding: 20px;
+  font-size: 18px;
+}
+
 
  
