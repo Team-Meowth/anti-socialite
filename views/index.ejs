@@ -15,12 +15,58 @@
 <div id="clear"></div>
   
   <main> 
+
+    
     <form id="search-field" action="/search" method="POST">
       <fieldset>
         <input class="search" type="text" name="search" placeholder="search for movies...">
         <button type="submit">Search</button>
       </fieldset>
     </form>
+
+    <section class="movie">
+      <div id="user-search">
+        <h2> You searched for: <%=searchResults[3].title %></h2>
+        <img src="<%= searchResults[3].poster_path %>" alt=" <%= searchResults[3].title %>" id="<%=searchResults[3].id %>">
+      </div>
+
+      <div class="modal" id="<%=searchResults[3].id%>Modal">
+        <img src="<%= searchResults[3].poster_path%>" alt="<%= searchResults[3].title %>">
+        <span class="close">close</span>
+        <h2><%= searchResults[3].title %></h2>
+        <p><%= searchResults[3].overview%></p>
+        <p> Release Date: <%= searchResults[3].release_date%></p>
+        <p> Rating: <%= searchResults[3].vote_average %></p>
+
+        <form action="/favorites" method="POST">
+          <input type="hidden" name="popularity" value="<%= searchResults[3].popularity%>">
+          <input type="hidden" name="poster_path" value="<%= searchResults[3].poster_path%>">
+          <input type="hidden" name="id" value="<%= searchResults[3].id%>">
+          <input type="hidden" name="backdrop_path" value="<%= searchResults[3].backdrop_path%>">
+          <input type="hidden" name="title" value="<%= searchResults[3].title %>">
+          <input type="hidden" name="vote_average" value="<%= searchResults[3].vote_average%>">
+          <input type="hidden" name="overview" value="<%= searchResults[3].overview%>">
+          <input type="hidden" name="release_date" value="<%= searchResults[3].release_date%>">
+
+          <button type="submit">Add To Favorites</button>
+        </form>
+
+        <form action="/watchlist" method="POST">
+          <input type="hidden" name="popularity" value="<%= searchResults[3].popularity%>">
+          <input type="hidden" name="poster_path" value="<%= searchResults[3].poster_path%>">
+          <input type="hidden" name="id" value="<%= searchResults[3].id%>">
+          <input type="hidden" name="backdrop_path" value="<%= searchResults[3].backdrop_path%>">
+          <input type="hidden" name="title" value="<%= searchResults[3].title %>">
+          <input type="hidden" name="vote_average" value="<%= searchResults[3].vote_average%>">
+          <input type="hidden" name="overview" value="<%= searchResults[3].overview%>">
+          <input type="hidden" name="release_date" value="<%= searchResults[3].release_date%>">
+          <button type="submit">Add To Watchlist</button>
+        </form>
+
+      </div>
+    </section>
+
+
     <section class="wrapper">
       <section class="container">
         <h2>By Search</h2>
