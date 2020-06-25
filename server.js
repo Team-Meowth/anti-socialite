@@ -60,6 +60,7 @@ function searchRoute(request, response){
       let movieId = searchData.body.results[0].id;
       let movieGenres = searchData.body.results[0].genre_ids;
       let movieVotes = searchData.body.results[0].vote_average;
+      let searchedMovie = new Movie(searchData.body.results[0]);
       let idURL = `https://api.themoviedb.org/3/movie/${movieId}/recommendations`;
       let idParams = {
         api_key : movieKey,
@@ -107,7 +108,7 @@ function searchRoute(request, response){
                       break;
                     }
                   }
-                  let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
+                  let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray, searchedMovie];
                   response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
                 }).catch(errorCatch);
             }).catch(errorCatch);
@@ -130,6 +131,7 @@ function titleSearchRoute(request, response){
       let movieId = searchData.body.results[0].id;
       let movieGenres = searchData.body.results[0].genre_ids;
       let movieVotes = searchData.body.results[0].vote_average;
+      let searchedMovie = new Movie(searchData.body.results[0]);
       let idURL = `https://api.themoviedb.org/3/movie/${movieId}/recommendations`;
       let idParams = {
         api_key : movieKey,
@@ -174,7 +176,7 @@ function titleSearchRoute(request, response){
                       break;
                     }
                   }
-                  let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray];
+                  let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray, searchedMovie];
                   response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
                 }).catch(errorCatch);
             }).catch(errorCatch);
