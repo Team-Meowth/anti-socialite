@@ -14,8 +14,9 @@
   <main>
     <div class="space"></div>
     <section class="wrapper">
-    <section class="container">
+    <section id="faves" class="container">
       <% searchResults.forEach(value =>{ %>
+        <div id="fave">
         <article class="movie">
 
           <h3><%= value.title %></h3>
@@ -37,6 +38,8 @@
             <input type="hidden" name="release_date" value="<%= value.release_date%>">
             <button type="submit">Add To Watch Later List</button>
           </form>
+
+          </div>
 
           <input type="hidden" value="<%= value.title %>">
 

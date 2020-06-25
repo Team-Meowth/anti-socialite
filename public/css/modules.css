@@ -9,18 +9,22 @@ h1 {
   font-size: 36px;
 }
 
-
 h2 {
     font-family: 'Josefin Sans', sans-serif;
   }
 
-header h2 {
+/* header h2 {
     color: #00efdd;
-  }
+  } */
 
-#antisocial {
-  color: white;
+h1 a{
+  color: white; 
+  text-decoration: none;
 }  
+
+h1 a:hover {
+  color: #00efdd;
+} 
 
 /* burger menu */
 
@@ -77,7 +81,7 @@ top: 15px;
 /* open menu */
 
 #burger-container.open nav{
-  width: 495px;
+  width: 100%;
   background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   height: 800px;
   margin-top: 20px;
@@ -207,18 +211,13 @@ top: 15px;
 
 }
 
-footer {
-  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
-  height: 60px;
-  color: white;
-  margin-top: 30px;
-}
 
 p {
   font-family: 'Josefin Sans', sans-serif;
   padding: 20px;
   font-size: 18px;
 }
+
 
 
 
