@@ -9,8 +9,13 @@ h1 {
   font-size: 36px;
 }
 
+
 h2 {
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+header h2 {
+    color: #00efdd;
   }
 
 /* burger menu */
@@ -64,8 +69,8 @@ top: 15px;
 /* open menu */
 
 #burger-container.open nav{
-  width: 550px;
-  background-image: url("/images/blue-curtain.jpg");
+  width: 495px;
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   height: 800px;
 }
 
@@ -78,6 +83,7 @@ top: 15px;
   padding: 30px;
   font-size: 22px;
   margin: auto;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 #burger-container.open .menu{
@@ -86,6 +92,10 @@ top: 15px;
 
 #desktop-menu{
   display: none;
+}
+
+.close{
+  cursor: pointer;
 }
 
 @media screen and (min-width: 961px) {
@@ -99,7 +109,8 @@ top: 15px;
     color: #eee;
     padding: 20px;
     margin-top: 70px;
-    font-size: 24px; 
+    font-size: 22px; 
+    font-family: 'Josefin Sans', sans-serif;
   }
 
   #desktop-menu{
@@ -133,13 +144,13 @@ top: 15px;
 }
 
 footer {
-  background-color: #0B132B;
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   height: 60px;
   color: white;
 }
 
 p {
-  font-family: 'Crimson Pro', serif;
+  font-family: 'Josefin Sans', sans-serif;
   padding: 20px;
   font-size: 18px;
 }

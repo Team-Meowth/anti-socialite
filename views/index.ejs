@@ -24,15 +24,12 @@
     <section class="wrapper">
       <section class="container">
         <h2>By Search</h2>
-          <% searchResults[0].forEach(movie => { %>
-            
+          <% searchResults[0].forEach(movie => { %>       
             
             <article class="movie">
               <h3> <%= movie.title %> </h3>
               <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
             </article>
-            
-
 
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
 
@@ -75,13 +72,11 @@
        <section class="container">
         <h2>By Genre</h2>
           <% searchResults[1].forEach(movie => { %>
-          
-            
+                     
             <article class="movie">
               <h3> <%= movie.title %> </h3>
               <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
             </article>
-
 
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
             
