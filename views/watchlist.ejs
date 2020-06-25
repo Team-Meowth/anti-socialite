@@ -19,9 +19,12 @@
         <article class="movie">
           <h3><%= value.title %></h3>
           <img src="<%= value.poster_path %>" alt="<%= value.title %>">
+        </article>
+
           <form action="/watchlist/<%= value.movie_id %>?_method=DELETE" method="POST"> <!-- Changed -->
             <button type="submit">Delete From Watchlist</button>
           </form>
+          
           <form action="/favorites" method="POST">
             <input type="hidden" name="popularity" value="<%= value.popularity%>">
             <input type="hidden" name="poster_path" value="<%= value.poster_path%>">
@@ -34,10 +37,22 @@
             <button type="submit">Add To Favorites</button>
           </form>
           <input type="hidden" value="<%= value.title %>">
-        </article>
+
+          <!-- Work on modal -->
+          <div class="modal" id="<%=value.movie_id%>Modal">
+            <img src="<%= value.poster_path%>" alt="<%= value.title %>">
+            <span class="close">close</span>
+            <h2><%= value.title %></h2>
+            <p><%= value.overview%></p>
+            <p> Release Date: <%= value.release_date%></p>
+            <p> Rating: <%= value.vote_average %></p>
+            <p> Your Rating: <%=value.user_rating%> </p>
+          </div>
+
       <% }) %>
     </section>
     </section>
   </main>
+  <%- include('./partials/footer.ejs') %>
 </body>
 </html>

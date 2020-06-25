@@ -109,7 +109,6 @@ top: 15px;
    #desktop-menu nav{
     display: flex;
     justify-content: center;
-    padding-bottom: 40px;
   }
 
   .menu a{
