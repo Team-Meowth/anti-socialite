@@ -114,12 +114,14 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
+  overflow-y: scroll;
 }
 
 .modal img {
   float: left;
   max-height: 80%;
   padding: 1em;
+  max-width: 300px;
 }
 
 
@@ -145,6 +147,10 @@ button:hover {
     position: relative;
     z-index: 1;
     /* play here */
+  }
+
+  .modal img{
+    max-width: 500px;
   }
 
 }
