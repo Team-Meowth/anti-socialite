@@ -124,7 +124,7 @@ button:hover {
   max-width: 300px;
 }
 
-p{
+p {
   font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -146,6 +146,11 @@ p{
   .bio {
     height: 600px;
   }
+
+  /* #creators {
+    display: flex;
+    align-items: flex-start;
+  } */
 
   .search{
     position: relative;

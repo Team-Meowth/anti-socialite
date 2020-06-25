@@ -18,7 +18,15 @@ header h2 {
     color: #00efdd;
   }
 
+#antisocial {
+  color: white;
+}  
+
 /* burger menu */
+
+#burger {
+  margin-left: 20px;
+}
 #burger-container{
   position: relative;
   display: flex; 
@@ -72,9 +80,10 @@ top: 15px;
   width: 495px;
   background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   height: 800px;
+  margin-top: 20px;
 }
 
-#burger-container.open a{
+#burger-container.open a {
   color: #eee;
   visibility: visible;
   display: flex;
@@ -86,7 +95,11 @@ top: 15px;
   font-family: 'Josefin Sans', sans-serif;
 }
 
-#burger-container.open .menu{
+#burger-container.open a:hover {
+  color: #00efdd;
+}
+
+#burger-container.open .menu {
   display: none;
 }
 
@@ -97,6 +110,52 @@ top: 15px;
 .close{
   cursor: pointer;
 }
+
+/* about us page*/
+.profile {
+  text-align: center;
+}
+
+.profiles {
+  padding: 20px 5px 20px 5px;
+}
+
+/* social media icons */
+.fab {
+  color: white;
+}
+
+.social {
+  text-align: center;
+  padding: 10px;
+}
+
+/* buttons */
+#search-field button {
+  padding: 10px;
+  font-size: 14px;
+  box-shadow: 0 6px #0b0d14;
+}
+
+#search-field button:hover {
+  background-color: #00efdd;
+}
+
+#search-field button:active {
+  box-shadow: 0 3px #020303;
+}
+
+.container button {
+  color: #0b0d14;
+  padding: 4px;
+  font-size: 12px;
+  box-shadow: 0 6px #0b0d14;
+}
+
+.container button:active {
+  box-shadow: 0 3px #020303;
+}
+
 
 @media screen and (min-width: 961px) {
 
@@ -129,6 +188,10 @@ top: 15px;
     margin-bottom: 30px;
   }
 
+  .menu:hover{
+    color: #00efdd;
+  }
+
   nav{
     width: 100%;
   } 
@@ -147,6 +210,7 @@ footer {
   background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   height: 60px;
   color: white;
+  margin-top: 30px;
 }
 
 p {
@@ -154,6 +218,8 @@ p {
   padding: 20px;
   font-size: 18px;
 }
+
+
 
 
  
