@@ -158,6 +158,7 @@ function titleSearchRoute(request, response) {
             .query(genreParams)
             .then(genreData => {
               let genreMovieArray = [];
+              shuffle(genreData.body.results);
               for (let i = 0; i < genreData.body.results.length; i++) {
                 genreMovieArray.push(new Movie(genreData.body.results[i]))
                 if (i >= 2) {
@@ -172,6 +173,7 @@ function titleSearchRoute(request, response) {
                 .query(votesParams)
                 .then(votesData => {
                   let votesMovieArray = [];
+                  shuffle(votesData.body.results);
                   for (let i = 0; i < votesData.body.results.length; i++) {
                     votesMovieArray.push(new Movie(votesData.body.results[i]))
                     if (i >= 2) {
