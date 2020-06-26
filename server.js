@@ -55,76 +55,7 @@ function searchRoute(request, response) {
     response.status(200).redirect('/');
     return;
   }
-  let url = 'https://api.themoviedb.org/3/search/movie';
-  const movieKey = process.env.MOVIE_API_KEY;
-  console.log('This is the search:', searchString);
-  const searchParams = {
-    api_key: movieKey,
-    query: searchString,
-    limit: 1
-  }
-  superagent.get(url)
-    .query(searchParams)
-    .then(searchData => {
-      let movieId = searchData.body.results[0].id;
-      let movieGenres = searchData.body.results[0].genre_ids;
-      let movieVotes = searchData.body.results[0].vote_average;
-      let searchedMovie = new Movie(searchData.body.results[0]);
-      let idURL = `https://api.themoviedb.org/3/movie/${movieId}/recommendations`;
-      let idParams = {
-        api_key: movieKey,
-        page: 1
-      }
-      superagent.get(idURL)
-        .query(idParams)
-        .then(similarData => {
-          let similarMovieArray = [];
-          shuffle(similarData.body.results);
-          for (let i = 0; i < similarData.body.results.length; i++) {
-            similarMovieArray.push(new Movie(similarData.body.results[i]))
-            if (i >= 2) {
-              break;
-            }
-          }
-          let discoverUrl = 'https://api.themoviedb.org/3/discover/movie?';
-          let genreParams = {
-            api_key: movieKey,
-            with_genres: movieGenres
-          }
-          superagent.get(discoverUrl)
-            .query(genreParams)
-            .then(genreData => {
-              let genreMovieArray = [];
-              shuffle(genreData.body.results);
-              for (let i = 0; i < genreData.body.results.length; i++) {
-                genreMovieArray.push(new Movie(genreData.body.results[i]))
-                if (i >= 2) {
-                  break;
-                }
-              }
-              let votesParams = {
-                api_key: movieKey,
-                vote_average: movieVotes
-              }
-              superagent.get(discoverUrl)
-                .query(votesParams)
-                .then(votesData => {
-                  let votesMovieArray = [];
-                  shuffle(votesData.body.results);
-                  for (let i = 0; i < votesData.body.results.length; i++) {
-                    votesMovieArray.push(new Movie(votesData.body.results[i]))
-                    if (i >= 2) {
-                      break;
-                    }
-                  }
-
-                  let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray, searchedMovie];
-                  response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
-
-                }).catch(errorCatch);
-            }).catch(errorCatch);
-        }).catch(errorCatch);
-    }).catch(errorCatch);
+  searchFunction(searchString, response);
 }
 
 function titleSearchRoute(request, response) {
@@ -133,13 +64,17 @@ function titleSearchRoute(request, response) {
     response.status(200).redirect('/');
     return;
   }
+  searchFunction(searchString, response);
+}
+
+function searchFunction(searchString, response) {
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
   const searchParams = {
     api_key: movieKey,
     query: searchString,
     limit: 1
-  }
+  };
   superagent.get(url)
     .query(searchParams)
     .then(searchData => {
@@ -151,13 +86,13 @@ function titleSearchRoute(request, response) {
       let idParams = {
         api_key: movieKey,
         page: 1 // possibly add a random element to the page
-      }
+      };
       superagent.get(idURL)
         .query(idParams)
         .then(similarData => {
           let similarMovieArray = [];
           for (let i = 0; i < similarData.body.results.length; i++) {
-            similarMovieArray.push(new Movie(similarData.body.results[i]))
+            similarMovieArray.push(new Movie(similarData.body.results[i]));
             if (i >= 2) {
               break;
             }
@@ -166,14 +101,14 @@ function titleSearchRoute(request, response) {
           let genreParams = {
             api_key: movieKey,
             with_genres: movieGenres
-          }
+          };
           superagent.get(discoverUrl)
             .query(genreParams)
             .then(genreData => {
               let genreMovieArray = [];
               shuffle(genreData.body.results);
               for (let i = 0; i < genreData.body.results.length; i++) {
-                genreMovieArray.push(new Movie(genreData.body.results[i]))
+                genreMovieArray.push(new Movie(genreData.body.results[i]));
                 if (i >= 2) {
                   break;
                 }
@@ -181,22 +116,20 @@ function titleSearchRoute(request, response) {
               let votesParams = {
                 api_key: movieKey,
                 vote_average: movieVotes
-              }
+              };
               superagent.get(discoverUrl)
                 .query(votesParams)
                 .then(votesData => {
                   let votesMovieArray = [];
                   shuffle(votesData.body.results);
                   for (let i = 0; i < votesData.body.results.length; i++) {
-                    votesMovieArray.push(new Movie(votesData.body.results[i]))
+                    votesMovieArray.push(new Movie(votesData.body.results[i]));
                     if (i >= 2) {
                       break;
                     }
                   }
-
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray, searchedMovie];
-                  response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
-
+                  response.status(200).render('index.ejs', { searchResults: finalFrontendArray });
                 }).catch(errorCatch);
             }).catch(errorCatch);
         }).catch(errorCatch);
