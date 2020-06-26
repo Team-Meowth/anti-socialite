@@ -165,6 +165,29 @@ top: 15px;
   margin-left: 50px;
 }
 
+/* search result */
+#box h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center; 
+  padding-top: 20px;
+}
+
+#search-title {
+ text-align: center;
+ font-family: 'Limelight', cursive;
+ padding: 20px;
+ font-size: 18px;
+ color: #00efdd;
+}
+
+ #user-search {
+  height: 460px;
+  text-align: center;
+ }
+
+ #box img {
+   margin-right: 50px;
+ }
 
 @media screen and (min-width: 961px) {
 
