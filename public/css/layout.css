@@ -8,7 +8,7 @@ header {
   position: fixed;
   width: 100%;
   z-index: 2;
-  /* play here  */
+  
 }
 
 footer {
@@ -68,13 +68,15 @@ header h2 {
   background-color: #0B132B;
   border-radius: 10px;
   color: white;
+  height: 1200px;
 }
 
 .container h2 {
   text-align: center;
   padding: 20px;
-  font-family: 'Limelight', cursive;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 125%;
+  line-height: 1.5em;
 }
 
 .bio h2 {
@@ -88,7 +90,7 @@ header h2 {
   height: 300px;
   width: 300px;
   border-radius: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   color: #6FFFE9;
 }
 
@@ -148,6 +150,10 @@ button:hover {
   max-width: 300px;
 }
 
+.close {
+  float: right;
+}
+
 p {
   font-family: 'Josefin Sans', sans-serif;
 }
@@ -166,6 +172,8 @@ p {
   border: none;
   background-color: transparent;
 }
+
+
 
 
 @media screen and (min-width: 961px) {

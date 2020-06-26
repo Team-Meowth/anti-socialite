@@ -24,11 +24,13 @@
     </form>
 
 
-      <section class="movie" class="user-search">
-        <div class="user-search">
-          <h2> You searched for: <%=searchResults[3].title %></h2>
+      <section id="user-search" class="container" class="movie">
+        <div id="box" class="movie">
+          <h2> You searched for: </h2>
+          <h3 id="search-title"><%=searchResults[3].title %></h3>
           <img src="<%= searchResults[3].poster_path %>" alt=" <%= searchResults[3].title %>" id="<%=searchResults[3].id %>">
-        </div>
+        </div> 
+       
 
   
         <div class="modal" id="<%=searchResults[3].id%>Modal">
@@ -71,19 +73,21 @@
 
     <section class="wrapper">
       <section class="container">
-        <h2>By Search</h2>
+        <h2 class="suggestions">Suggestions<br>By Search</h2>
           <% searchResults[0].forEach(movie => { %>       
-            
+           
+            <div class="movie-box">
             <article class="movie">
               <h3> <%= movie.title %> </h3>
               <img src="<%= movie.poster_path %>" alt="<%= movie.title %>" id="<%=movie.id%>">
             </article>
 
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
+          </div>
 
             <div class="modal" id="<%=movie.id%>Modal">
-              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
               <span class="close">close</span>
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
               <h2><%= movie.title %></h2>
               <p><%= movie.overview%></p>
               <p> Release Date: <%= movie.release_date%></p>
@@ -118,7 +122,7 @@
             <% }) %> 
        </section>
        <section class="container">
-        <h2>By Genre</h2>
+        <h2 class="suggestions">Suggestions <br>By Genre</h2>
           <% searchResults[1].forEach(movie => { %>
                      
             <article class="movie">
@@ -129,8 +133,8 @@
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
             
             <div class="modal" id="<%=movie.id%>Modal">
-              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
               <span class="close">close</span>
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
               <h2><%= movie.title %></h2>
               <p><%= movie.overview%></p>
               <p> Release Date: <%= movie.release_date%></p>
@@ -165,7 +169,7 @@
             <% }) %> 
        </section>
        <section class="container">
-        <h2>By Popularity</h2>
+        <h2 class="suggestions">Suggestions<br>By Popularity</h2>
           <% searchResults[2].forEach(movie => { %>
            
             
@@ -179,8 +183,8 @@
             <button><a href="/search/<%= movie.title %>">See more Like this</a></button>
             
             <div class="modal" id="<%=movie.id%>Modal">
-              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
               <span class="close">close</span>
+              <img src="<%= movie.poster_path%>" alt="<%= movie.title %>">
               <h2><%= movie.title %></h2>
               <p><%= movie.overview%></p>
               <p> Release Date: <%= movie.release_date%></p>
