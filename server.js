@@ -35,9 +35,13 @@ function homeRoute(request, response) {
   let sql = `SELECT TITLE FROM movies;`;
   client.query(sql)
     .then(sqlResults => {
-      let movies = sqlResults.rows;
-      shuffle(movies);
-      response.status(200).redirect(`/search/${movies[0].title}`);
+      if (sqlResults.rowCount === 0){
+        return response.status(200).redirect('/search/detective pikachu');
+      }else{
+        let movies = sqlResults.rows;
+        shuffle(movies);
+        response.status(200).redirect(`/search/${movies[0].title}`);
+      }
     }).catch(error => console.error(error))
 }
 
@@ -47,8 +51,13 @@ function aboutRoute(request, response) {
 
 function searchRoute(request, response) {
   let searchString = request.body.search;
+  if (searchString === undefined || searchString === ''){
+    response.status(200).redirect('/');
+    return;
+  }
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
+  console.log('This is the search:', searchString);
   const searchParams = {
     api_key: movieKey,
     query: searchString,
@@ -120,6 +129,10 @@ function searchRoute(request, response) {
 
 function titleSearchRoute(request, response) {
   let searchString = request.params.title;
+  if (searchString === undefined || searchString === ''){
+    response.status(200).redirect('/');
+    return;
+  }
   let url = 'https://api.themoviedb.org/3/search/movie';
   const movieKey = process.env.MOVIE_API_KEY;
   const searchParams = {
@@ -240,26 +253,26 @@ function insertIntoMovies(request, response) {
   let { popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date } = request.body;
   let sql = `SELECT title FROM movies WHERE movie_id = ($1);`;
   let safeValues = [id];
-  console.log('id', id)
+  // console.log('id', id)
   let user_id = 1;
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      console.log(sqlResults)
+      // console.log(sqlResults)
       if (sqlResults.rowCount > 0) {
-        console.log('not adding')
+        // console.log('not adding')
         response.status(200).redirect('back');
+
       } else {
         let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
         let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
 
         client.query(sql, safeValues)
           .then(sqlResults => {
-            console.log('adding')
+            // console.log('adding')
             response.status(200).redirect('back');
-          })
-      }})
-      .catch(errorCatch);
+          }).catch(errorCatch);
+      }}).catch(errorCatch);
 }
 
 function insertIntoWatchlist(request, response) {
@@ -298,21 +311,24 @@ function deleteFromFavorites(request, response) {
 function deleteFromWatchlist(request, response) {
   const sql = 'DELETE FROM watchlist WHERE movie_id = ($1);';
   const safeValues = [request.params.movie_id]
+  
+  console.log('Jimni: ', safeValues);
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      let userId = 1;
-      let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
-      let safeValues = [userId];
+      response.status(200).redirect('/watchlist');
+      // let userId = 1;
+      // let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
+      // let safeValues = [userId];
 
-      client.query(sql, safeValues)
-        .then(sqlResults2 => {
-          let finalFrontendArray = [];
-          sqlResults2.rows.forEach(value => {
-            finalFrontendArray.push(value);
-          })
-          response.status(200).render('./watchlist.ejs', { searchResults: finalFrontendArray });
-        }).catch(errorCatch);
+      // client.query(sql, safeValues)
+      //   .then(sqlResults2 => {
+      //     let finalFrontendArray = [];
+      //     sqlResults2.rows.forEach(value => {
+      //       finalFrontendArray.push(value);
+      //     })
+      //     response.status(200).render('./watchlist.ejs', { searchResults: finalFrontendArray });
+      //   }).catch(errorCatch);
     }).catch(errorCatch);
 }
 
@@ -322,6 +338,7 @@ function Movie(obj) {
   this.poster_path = `https://image.tmdb.org/t/p/w500${obj.poster_path}`;
   this.video = obj.video;
   this.id = obj.id; // TODO chance the property into movie_id
+  this.movie_id = obj.id;
   this.backdrop_path = `https://image.tmdb.org/t/p/w500${obj.backdrop_path}`;
   this.original_language = obj.original_language;
   this.original_title = obj.original_title;
@@ -329,8 +346,8 @@ function Movie(obj) {
   this.title = obj.title;
   this.vote_average = obj.vote_average;
   this.overview = obj.overview;
-  if (this.overview.length > 254) this.overview = this.overview.slice(0, 250) + '...';
-  this.release_date = obj.release_date;
+  // if (this.overview.length > 254) this.overview = this.overview.slice(0, 250) + '...';
+  this.release_date = obj.release_date.slice(0,4);
   this.user_rating = obj.user_rating;
 }
 
