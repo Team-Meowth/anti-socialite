@@ -17,7 +17,8 @@ CREATE TABLE movies (
   title VARCHAR(255),
   vote_average REAL,
   overview VARCHAR(8000),
-  release_date DATE,
+  -- release_date DATE,
+  release_date INT,
   user_rating INT,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
@@ -32,7 +33,8 @@ CREATE TABLE watchlist (
   title VARCHAR(255),
   vote_average REAL,
   overview VARCHAR(8000),
-  release_date DATE,
+  -- release_date DATE,
+  release_date INT,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );

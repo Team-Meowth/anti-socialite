@@ -1,6 +1,5 @@
 header {
-  background-color: #0B132B;
-  background-image: linear-gradient(to bottom right, #0B132B, #3f397e);
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   /* opacity: 0.9; */
   font-size: xx-large;
   text-align: center;
@@ -9,7 +8,15 @@ header {
   position: fixed;
   width: 100%;
   z-index: 2;
-  /* play here  */
+  
+}
+
+footer {
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
+  height: 60px;
+  width: 100%;
+  color: white;
+  margin-top: 30px;
 }
 
 .search {
@@ -54,7 +61,32 @@ header h2 {
   color: white;
 }
 
+.bio {
+  border: 2px solid #6FFFE9;
+  max-width: 300px;
+  margin: auto auto 30px auto;
+  background-color: #0B132B;
+  border-radius: 10px;
+  color: white;
+  /* height: 1200px; */
+}
+
+.close {
+  cursor: pointer;
+  float: right;
+  font-size: 18px;
+  padding: 10px;
+}
+
 .container h2 {
+  text-align: center;
+  padding: 20px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 125%;
+  line-height: 1.5em;
+}
+
+.bio h2 {
   text-align: center;
   padding: 20px;
   font-family: 'Limelight', cursive;
@@ -65,7 +97,7 @@ header h2 {
   height: 300px;
   width: 300px;
   border-radius: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   color: #6FFFE9;
 }
 
@@ -99,6 +131,7 @@ button:hover {
   border-radius: 10px;
   margin-left: 50px;
   max-width: 200px;
+  cursor: pointer;
 
 }
 
@@ -125,6 +158,29 @@ button:hover {
 }
 
 
+
+p {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#fave {
+  border: 2px solid #6FFFE9;
+  max-width: 350px;
+  height: 400px;
+  margin: auto auto 30px auto;
+  background-color: #0B132B;
+  border-radius: 10px;
+  color: white;
+}
+
+#faves {
+  border: none;
+  background-color: transparent;
+}
+
+
+
+
 @media screen and (min-width: 961px) {
 
   .wrapper {
@@ -140,17 +196,31 @@ button:hover {
   }
 
   .bio {
-    height: 600px;
+    flex-direction: row;
+    /* max-width: 500px; */
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 700px;
   }
+   
 
-  .search{
+  .search {
     position: relative;
     z-index: 1;
-    /* play here */
   }
 
   .modal img{
     max-width: 500px;
   }
+
+  footer {
+    background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
+    height: 60px;
+    width: 100%;
+    color: white;
+    margin-top: 30px;
+  }
+  
+
 
 }

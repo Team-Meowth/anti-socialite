@@ -20,6 +20,12 @@ $('.close').on('click', (event) => {
   $('.choose-rating').hide();
 })
 
+//add add to favorites notice
+$('#add-to-favorites').on('click', (event)=> {
+  let notice = '<p>Added to Favorites</p>'
+  $('.modal').append(notice);
+})
+
 
 
 // hamburger menu`

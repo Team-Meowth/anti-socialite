@@ -10,10 +10,27 @@ h1 {
 }
 
 h2 {
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Josefin Sans', sans-serif;
   }
 
+/* header h2 {
+    color: #00efdd;
+  } */
+
+h1 a{
+  color: white; 
+  text-decoration: none;
+}  
+
+h1 a:hover {
+  color: #00efdd;
+} 
+
 /* burger menu */
+
+#burger {
+  margin-left: 10px;
+}
 #burger-container{
   position: relative;
   display: flex; 
@@ -26,7 +43,7 @@ h2 {
 #burger span{
   background: #eee;
   display: block;
-  width: 50px;
+  width: 45px;
   height: 4px;
   margin-bottom: 6px;
   position: relative;
@@ -64,12 +81,13 @@ top: 15px;
 /* open menu */
 
 #burger-container.open nav{
-  width: 550px;
-  background-image: url("/images/blue-curtain.jpg");
+  width: 100%;
+  background-image: linear-gradient(to bottom right, #0b0d14, #0B132B);
   height: 800px;
+  margin-top: 20px;
 }
 
-#burger-container.open a{
+#burger-container.open a {
   color: #eee;
   visibility: visible;
   display: flex;
@@ -78,15 +96,95 @@ top: 15px;
   padding: 30px;
   font-size: 22px;
   margin: auto;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
-#burger-container.open .menu{
+#burger-container.open a:hover {
+  color: #00efdd;
+}
+
+#burger-container.open .menu {
   display: none;
 }
 
 #desktop-menu{
   display: none;
 }
+
+
+
+/* about us page*/
+.profile {
+  text-align: center;
+}
+
+.profiles {
+  padding: 20px 5px 20px 5px;
+}
+
+/* social media icons */
+.fab {
+  color: white;
+}
+
+.social {
+  text-align: center;
+  padding: 10px;
+}
+
+/* buttons */
+#search-field button {
+  padding: 10px;
+  font-size: 14px;
+  box-shadow: 0 6px #0b0d14;
+}
+
+#search-field button:hover {
+  background-color: #00efdd;
+}
+
+#search-field button:active {
+  box-shadow: 0 3px #020303;
+}
+
+.container button {
+  color: #0b0d14;
+  padding: 4px;
+  font-size: 12px;
+  box-shadow: 0 6px #0b0d14;
+}
+
+.container button:active {
+  box-shadow: 0 3px #020303;
+}
+
+#top{
+  margin-left: 50px;
+}
+
+/* search result */
+#box h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center; 
+  padding-top: 20px;
+}
+
+#search-title {
+ text-align: center;
+ font-family: 'Limelight', cursive;
+ padding: 20px;
+ font-size: 18px;
+ color: #00efdd;
+}
+
+ #user-search {
+  height: 460px;
+  text-align: center;
+ }
+
+ #box img {
+   margin-right: 50px;
+ }
 
 @media screen and (min-width: 961px) {
 
@@ -99,7 +197,8 @@ top: 15px;
     color: #eee;
     padding: 20px;
     margin-top: 70px;
-    font-size: 24px; 
+    font-size: 22px; 
+    font-family: 'Josefin Sans', sans-serif;
   }
 
   #desktop-menu{
@@ -118,6 +217,10 @@ top: 15px;
     margin-bottom: 30px;
   }
 
+  .menu:hover{
+    color: #00efdd;
+  }
+
   nav{
     width: 100%;
   } 
@@ -130,19 +233,21 @@ top: 15px;
     visibility: hidden;
   }
 
+  .bio {
+    height: 900px;
+  }
+
 }
 
-footer {
-  background-color: #0B132B;
-  height: 60px;
-  color: white;
-}
 
 p {
-  font-family: 'Crimson Pro', serif;
+  font-family: 'Josefin Sans', sans-serif;
   padding: 20px;
   font-size: 18px;
 }
+
+
+
 
 
  
