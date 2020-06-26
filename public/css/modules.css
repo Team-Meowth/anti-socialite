@@ -111,9 +111,6 @@ top: 15px;
   display: none;
 }
 
-.close{
-  cursor: pointer;
-}
 
 
 /* about us page*/
@@ -234,6 +231,10 @@ top: 15px;
 
   header h2 {
     visibility: hidden;
+  }
+
+  .bio {
+    height: 900px;
   }
 
 }
