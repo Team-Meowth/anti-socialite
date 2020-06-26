@@ -27,7 +27,7 @@ function routes() {
   app.get('/about', aboutRoute);
   app.delete('/favorites/:movie_id', deleteFromFavorites);
   app.get('/favorites', gotoFavorites);
-  app.post('/favorites', insertIntoMovies);
+  app.post('/favorites', insertIntoFavorites);
   app.get('/search', searchRoute);
   app.get('/search/:title', titleSearchRoute);
   app.post('/search', searchRoute);
@@ -46,7 +46,7 @@ function homeRoute(request, response) {
   let sql = 'SELECT TITLE FROM movies;';
   client.query(sql)
     .then(sqlResults => {
-      if (sqlResults.rowCount === 0){
+      if (sqlResults.rowCount === 0) {
         return response.status(200).redirect('/search/detective pikachu');
       } else {
         let movies = sqlResults.rows;
@@ -62,7 +62,7 @@ function aboutRoute(request, response) {
 
 function searchRoute(request, response) {
   let searchString = request.body.search;
-  if (searchString === undefined || searchString === ''){
+  if (searchString === undefined || searchString === '') {
     response.status(200).redirect('/');
     return;
   }
@@ -130,7 +130,7 @@ function searchRoute(request, response) {
                   }
 
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray, searchedMovie];
-                  response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
+                  response.status(200).render('index.ejs', { searchResults: finalFrontendArray });
 
                 }).catch(errorCatch);
             }).catch(errorCatch);
@@ -140,7 +140,7 @@ function searchRoute(request, response) {
 
 function titleSearchRoute(request, response) {
   let searchString = request.params.title;
-  if (searchString === undefined || searchString === ''){
+  if (searchString === undefined || searchString === '') {
     response.status(200).redirect('/');
     return;
   }
@@ -206,7 +206,7 @@ function titleSearchRoute(request, response) {
                   }
 
                   let finalFrontendArray = [similarMovieArray, genreMovieArray, votesMovieArray, searchedMovie];
-                  response.status(200).render('index.ejs', {searchResults: finalFrontendArray});
+                  response.status(200).render('index.ejs', { searchResults: finalFrontendArray });
 
                 }).catch(errorCatch);
             }).catch(errorCatch);
@@ -252,30 +252,26 @@ function updateUserRating(request, response) {
     }).catch(errorCatch);
 }
 
-function insertIntoMovies(request, response) {
+function insertIntoFavorites(request, response) {
+  //TODO: we still have the id vs movie_id conflict here
   let { popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date } = request.body;
   let sql = `SELECT title FROM movies WHERE movie_id = ($1);`;
   let safeValues = [id];
-  // console.log('id', id)
-  let user_id = 1;
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      // console.log(sqlResults)
       if (sqlResults.rowCount > 0) {
-        // console.log('not adding')
         response.status(200).redirect('back');
-
       } else {
         let sql = `INSERT INTO movies ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
         let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
 
         client.query(sql, safeValues)
           .then(sqlResults => {
-            // console.log('adding')
             response.status(200).redirect('back');
           }).catch(errorCatch);
-      }}).catch(errorCatch);
+      }
+    }).catch(errorCatch);
 }
 
 function insertIntoWatchlist(request, response) {
@@ -295,18 +291,9 @@ function deleteFromFavorites(request, response) {
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      let sql = 'SELECT * FROM movies WHERE user_id = ($1);';
-      let safeValues = [user_id];
-
-      client.query(sql, safeValues)
-        .then(sqlResults2 => {
-          let finalFrontendArray = [];
-          sqlResults2.rows.forEach(value => {
-            finalFrontendArray.push(value);
-          })
-          response.status(200).render('./favorites.ejs', { searchResults: finalFrontendArray });
-        }).catch(errorCatch);
+      response.status(200).redirect('/favorites');
     }).catch(errorCatch);
+
 }
 
 function deleteFromWatchlist(request, response) {
@@ -333,8 +320,8 @@ function Movie(obj) {
   this.title = obj.title;
   this.vote_average = obj.vote_average;
   this.overview = obj.overview;
-  // if (this.overview.length > 254) this.overview = this.overview.slice(0, 250) + '...';
-  this.release_date = obj.release_date.slice(0,4);
+  if (this.overview.length > 7999) this.overview = this.overview.slice(0, 7999) + '...';
+  this.release_date = obj.release_date.slice(0, 4);
   this.user_rating = obj.user_rating;
 }
 
