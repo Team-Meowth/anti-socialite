@@ -71,7 +71,12 @@ header h2 {
   /* height: 1200px; */
 }
 
-
+.close {
+  cursor: pointer;
+  float: right;
+  font-size: 18px;
+  padding: 10px;
+}
 
 .container h2 {
   text-align: center;
@@ -152,9 +157,7 @@ button:hover {
   max-width: 300px;
 }
 
-.close {
-  float: right;
-}
+
 
 p {
   font-family: 'Josefin Sans', sans-serif;
