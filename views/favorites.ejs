@@ -23,21 +23,7 @@
           <img src="<%= value.poster_path %>" alt="<%= value.title %>" id="<%= value.movie_id %>">
         </article>
         
-        <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
-          <button type="submit">Delete From Favorites</button>
-        </form>
-
-          <form action="/watchlist" method="POST">
-            <input type="hidden" name="popularity" value="<%= value.popularity%>">
-            <input type="hidden" name="poster_path" value="<%= value.poster_path%>">
-            <input type="hidden" name="id" value="<%= value.id%>">
-            <input type="hidden" name="backdrop_path" value="<%= value.backdrop_path%>">
-            <input type="hidden" name="title" value="<%= value.title %>">
-            <input type="hidden" name="vote_average" value="<%= value.vote_average%>">
-            <input type="hidden" name="overview" value="<%= value.overview%>">
-            <input type="hidden" name="release_date" value="<%= value.release_date%>">
-            <button type="submit">Add To Watch Later List</button>
-          </form>
+        
 
           </div>
 
@@ -52,6 +38,23 @@
             <p> Rating: <%= value.vote_average %></p>
             <p> Your Rating: <%=value.user_rating%> </p>
             
+            <form action="/favorites/<%= value.movie_id %>?_method=DELETE" method="POST">
+              <button type="submit">Delete From Favorites</button>
+            </form>
+    
+              <form action="/watchlist" method="POST">
+                <input type="hidden" name="popularity" value="<%= value.popularity%>">
+                <input type="hidden" name="poster_path" value="<%= value.poster_path%>">
+                <input type="hidden" name="id" value="<%= value.id%>">
+                <input type="hidden" name="backdrop_path" value="<%= value.backdrop_path%>">
+                <input type="hidden" name="title" value="<%= value.title %>">
+                <input type="hidden" name="vote_average" value="<%= value.vote_average%>">
+                <input type="hidden" name="overview" value="<%= value.overview%>">
+                <input type="hidden" name="release_date" value="<%= value.release_date%>">
+                <button type="submit">Add To Watch Later List</button>
+              </form>
+
+
             <button class="add-rating">Add Rating</button>
             <form class='choose-rating' method="POST" action="/update/<%=value.movie_id%>?_method=PUT">
               <select name="user_rating">
@@ -68,6 +71,10 @@
               </select>
               <button type="submit" class="submit">submit</button>
             </form>
+
+            
+
+
           </div>
       
      <% }) %>

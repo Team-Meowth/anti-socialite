@@ -236,6 +236,10 @@ top: 15px;
     visibility: hidden;
   }
 
+  .bio {
+    height: 900px;
+  }
+
 }
 
 
