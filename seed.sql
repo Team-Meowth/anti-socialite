@@ -24,7 +24,8 @@ INSERT INTO movies (
   'Pokémon Detective Pikachu',
   7,
   'In a world where people collect pocket-size monsters (Pokémon) to do battle, a boy comes across an intelligent monster who seeks to be a detective.',
-  '2019-05-03',
+  -- '2019-05-03',
+  2019,
   10,
   1
   );
