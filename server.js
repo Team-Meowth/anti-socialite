@@ -1,43 +1,54 @@
 'use strict'
 
-const express = require('express');
-const app = express();
-const superagent = require('superagent');
-require('dotenv').config();
+const user_id = 1; // start here once ready to add users
 
-const pg = require('pg');
-const client = new pg.Client(process.env.DATABASE_URL);
-client.on('error', err => console.error(err));
+function requirements() {
+  require('dotenv').config();
+  const express = require('express');
+  const methodOverride = require('method-override');
+  const PORT = process.env.PORT || 3001;
+  const superagent = require('superagent');
 
-const PORT = process.env.PORT || 3001;
+  const pg = require('pg');
+  const client = new pg.Client(process.env.DATABASE_URL);
+  client.on('error', err => console.error(err));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('./public'));
-app.set('view engine', 'ejs');
-const methodOverride = require('method-override');
-app.use(methodOverride('_method'));
+  const app = express();
+  return { app, express, methodOverride, client, superagent, PORT };
+}
 
-app.get('/', homeRoute);
-app.get('/search', searchRoute);
-app.get('/search/:title', titleSearchRoute);
-app.post('/search', searchRoute);
-app.post('/favorites', insertIntoMovies);
-app.get('/favorites', gotoFavorites);
-app.delete('/favorites/:movie_id', deleteFromFavorites);
-app.post('/watchlist', insertIntoWatchlist);
-app.get('/watchlist', gotoWatchlist);
-app.put('/update/:movie_id', updateUserRating)
-app.delete('/watchlist/:movie_id', deleteFromWatchlist);
-app.get('/about', aboutRoute);
-app.all('*', errorRoute);
+function routes() {
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.static('./public'));
+  app.set('view engine', 'ejs');
+  app.use(methodOverride('_method'));
+
+  app.get('/', homeRoute);
+  app.get('/about', aboutRoute);
+  app.delete('/favorites/:movie_id', deleteFromFavorites);
+  app.get('/favorites', gotoFavorites);
+  app.post('/favorites', insertIntoMovies);
+  app.get('/search', searchRoute);
+  app.get('/search/:title', titleSearchRoute);
+  app.post('/search', searchRoute);
+  app.put('/update/:movie_id', updateUserRating);
+  app.delete('/watchlist/:movie_id', deleteFromWatchlist);
+  app.get('/watchlist', gotoWatchlist);
+  app.post('/watchlist', insertIntoWatchlist);
+  app.all('*', errorRoute);
+}
+
+const { app, client, express, methodOverride, PORT, superagent } = requirements();
+
+routes();
 
 function homeRoute(request, response) {
-  let sql = `SELECT TITLE FROM movies;`;
+  let sql = 'SELECT TITLE FROM movies;';
   client.query(sql)
     .then(sqlResults => {
       if (sqlResults.rowCount === 0){
         return response.status(200).redirect('/search/detective pikachu');
-      }else{
+      } else {
         let movies = sqlResults.rows;
         shuffle(movies);
         response.status(200).redirect(`/search/${movies[0].title}`);
@@ -204,9 +215,8 @@ function titleSearchRoute(request, response) {
 }
 
 function gotoFavorites(request, response) {
-  let userId = 1;
   let sql = 'SELECT * FROM movies WHERE user_id = ($1) ORDER BY id DESC;';
-  let safeValues = [userId];
+  let safeValues = [user_id];
 
   client.query(sql, safeValues)
     .then(sqlResults => {
@@ -219,9 +229,8 @@ function gotoFavorites(request, response) {
 }
 
 function gotoWatchlist(request, response) {
-  let userId = 1;
   let sql = 'SELECT * FROM watchlist WHERE user_id = ($1) ORDER BY id DESC;';
-  let safeValues = [userId];
+  let safeValues = [user_id];
 
   client.query(sql, safeValues)
     .then(sqlResults => {
@@ -233,15 +242,9 @@ function gotoWatchlist(request, response) {
     }).catch(errorCatch);
 }
 
-
 function updateUserRating(request, response) {
-  let user_rating = request.body.user_rating;
-  let movie_id = request.params.movie_id;
-  // console.log("here" + request.body.user_rating);
-  // console.log('there' + request.params.movie_id);
-  let user_id = 1;
   let sql = 'UPDATE movies SET user_rating = $1 WHERE movie_id = $2 AND user_id = $3;';
-  let safeValues = [user_rating, movie_id, user_id];
+  let safeValues = [request.body.user_rating, request.params.movie_id, user_id];
 
   client.query(sql, safeValues)
     .then(sqlResults => {
@@ -276,7 +279,6 @@ function insertIntoMovies(request, response) {
 }
 
 function insertIntoWatchlist(request, response) {
-  let user_id = 1;
   let { popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date } = request.body;
   let sql = `INSERT INTO watchlist ( popularity, poster_path, movie_id, backdrop_path, title, vote_average, overview, release_date, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
   let safeValues = [popularity, poster_path, id, backdrop_path, title, vote_average, overview, release_date, user_id];
@@ -293,7 +295,6 @@ function deleteFromFavorites(request, response) {
 
   client.query(sql, safeValues)
     .then(sqlResults => {
-      let user_id = 1;
       let sql = 'SELECT * FROM movies WHERE user_id = ($1);';
       let safeValues = [user_id];
 
@@ -311,24 +312,10 @@ function deleteFromFavorites(request, response) {
 function deleteFromWatchlist(request, response) {
   const sql = 'DELETE FROM watchlist WHERE movie_id = ($1);';
   const safeValues = [request.params.movie_id]
-  
-  console.log('Jimni: ', safeValues);
 
   client.query(sql, safeValues)
     .then(sqlResults => {
       response.status(200).redirect('/watchlist');
-      // let userId = 1;
-      // let sql = 'SELECT * FROM watchlist WHERE user_id = ($1);';
-      // let safeValues = [userId];
-
-      // client.query(sql, safeValues)
-      //   .then(sqlResults2 => {
-      //     let finalFrontendArray = [];
-      //     sqlResults2.rows.forEach(value => {
-      //       finalFrontendArray.push(value);
-      //     })
-      //     response.status(200).render('./watchlist.ejs', { searchResults: finalFrontendArray });
-      //   }).catch(errorCatch);
     }).catch(errorCatch);
 }
 
