@@ -1,6 +1,6 @@
 'use strict'
 
-console.log('Hi Leah');
+// console.log('Hi Leah');
 
 // $('.movie').on('click', () => {
 //   console.log('I am clicked');
