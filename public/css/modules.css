@@ -13,9 +13,6 @@ h2 {
     font-family: 'Josefin Sans', sans-serif;
   }
 
-/* header h2 {
-    color: #00efdd;
-  } */
 
 h1 a{
   color: white; 
@@ -148,13 +145,22 @@ top: 15px;
 }
 
 .container button {
-  color: #0b0d14;
-  padding: 4px;
-  font-size: 12px;
-  box-shadow: 0 6px #0b0d14;
+  color: rgba(0,0,0,0.3);
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  display: inline-block;
+  text-align: center;
+  margin: 12px;
+  opacity: 0.8;
+  transition: 0.3s;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 18px;
+  box-shadow: 0 6px #0b0d14; 
 }
 
 .container button:active {
+  color: black;
   box-shadow: 0 3px #020303;
 }
 
@@ -247,6 +253,9 @@ p {
 }
 
 
+button:hover {
+  opacity: 1;
+}
 
 
 
